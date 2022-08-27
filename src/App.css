@@ -1,0 +1,47 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --pcolor1: #121212;
+  --pcolor2: #242424;
+  --pcolor3: #363636;
+  --pcolor4: #474747;
+  --pcolor5: #595959;
+  --pcolor6: #6B6B6B;
+  --pcolor7: #7D7D7D;
+  --pcolor8: #8F8F8F;
+  --pcolor9: #B3B3B3;
+  --pcolor10: #D6D6D6;
+  --pcolor11: #E6E6E6;
+  --pcolor12: #F2F2F2;
+  --scolor1: #00531C;
+  --scolor2: #0E6701;
+  --scolor3: #1C860C;
+  --scolor4: #29A117;
+  --scolor5: #4BCB38;
+  --scolor6: #6BE758;
+  --scolor7: #8AFF78;
+  --scolor8: #A7FF9A;
+  --gradient1: #29A117 #0E6701;
+  --gradient2: #131313 #242424;
+  --poppins: 'Poppins', sans-serif;
+  --bebasNeue: 'Bebas Neue', cursive;
+  --openSans: 'Open Sans', sans-serif;
+}
+
+html {
+  font-size: 10px;
+  background-color: var(--pcolor1);
+  scroll-behavior: smooth;
+}
+
+ul, li {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
