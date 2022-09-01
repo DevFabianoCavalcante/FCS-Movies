@@ -42,6 +42,7 @@ export const Login = () => {
 
         if(typeAuth === 'login') {
             LoginUser({email, password, typeAuth});
+            navigate('/movies');
 
         } else if (typeAuth === 'register') {
             RegisterUser({email, password, userName, typeAuth});

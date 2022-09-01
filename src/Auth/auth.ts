@@ -2,7 +2,6 @@ import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, se
 import { app } from './firebaseconfig';
 import { UserType } from '../interface/user';
 import { ValidateForm } from "../helpers/ValidateForm";
-import { Navigate } from "react-router-dom";
 
 
 //Function alert in inputs
@@ -51,6 +50,7 @@ export const LoginUser =  async ({email, password, typeAuth}: UserType) => {
         .then((userCredential) => {
             const user = userCredential.user;
             !user.emailVerified ?? sendEmailVerification(user);
+            console.log('logado');
             
         })
         .catch((error) => {

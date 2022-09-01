@@ -1,4 +1,4 @@
-import React, { ReactComponentElement, useContext } from 'react';
+import React, { useContext } from 'react';
 import { Navigate } from 'react-router-dom';
 import { AuthContext } from '../Context/AuthContext';
 
@@ -7,12 +7,12 @@ interface Props {
 };
 
 export const PrivateRoute = ({ children }: Props) => {
-    const { userProfile }  = useContext(AuthContext);
-    console.log(userProfile);
+    const {userProfile} = useContext(AuthContext)
+    console.log(userProfile, 'userP');
 
     return (
         <div>
-            {userProfile ? children : <Navigate to='/' />}
+            {userProfile ? children : <Navigate to='/login' />}
         </div>
     );
 };

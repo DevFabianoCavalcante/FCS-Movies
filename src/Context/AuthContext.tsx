@@ -6,17 +6,22 @@ interface ComponentWithChildrenProps {
     children: React.ReactNode
 };
 
-export const AuthContext = createContext<any>({});
+export const AuthContext = createContext<any>(null);
 
 export const AuthProvider = (props: ComponentWithChildrenProps) => {
 
     const { children } = props;
-    const [userProfile, setUserProfile] = useState<User | null>();
+    const [userProfile, setUserProfile] = useState<any>();
 
-        const auth = getAuth();
-        onAuthStateChanged(auth, (user) => {
-            setUserProfile(user);
-            console.log(userProfile);
+        useEffect(()=>{
+            const auth = getAuth();
+            onAuthStateChanged(auth, (user) => {
+                if(user) {    
+                    setUserProfile(user);
+                } else {
+                    setUserProfile(null);
+                }
+            });
         });
 
     return <AuthContext.Provider value={{userProfile, setUserProfile}}> {children} </AuthContext.Provider>
