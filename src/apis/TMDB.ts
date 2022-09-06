@@ -1,19 +1,29 @@
 import axios from 'axios';
 
 const http = axios.create({
-    baseURL: 'https://api.themoviedb.org/3'
+    baseURL: import.meta.env.VITE_API_URL_BASE,
 });
 
-const key: string = '5382eef79738bd0041e1d109b40c498c';
+const apiParam = '?api_key=';
+const pageParam = '&page=';
+const language = '&language=pt-BR';
+const key: string = import.meta.env.VITE_API_KEY;
+const topRated = '/movie/top_rated';
+const popularMovie = '/movie/popular';
+const newMovies = '/movie/latest';
+
 
 export const Api = {
-    getPost: async () => {
-        const post = await http.get(`/posts`);
-        return post.data;
+    popularMovies: async () => {
+        const popularMovies = await http.get(popularMovie + apiParam + key + language);
+        return popularMovies.data;
     },
-    addNewPost: async (title: string, text: string, userId: number) => {
-        let response = await http.post(`/posts`, 
-        {title, text, userId});
-        return response.data;
+    topRatedMovies: async () => {
+        const topMovies = await http.get(topRated + apiParam + key + language);
+        return topMovies.data;
+    },
+    detailsMovie:  async (idMovie: string) => {
+        const infoMovie = await http.get(`/movie/${idMovie}?api_key=${key}`);
+        return infoMovie.data;
     },
 };

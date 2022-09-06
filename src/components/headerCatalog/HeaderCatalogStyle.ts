@@ -30,12 +30,11 @@ export const Search = styled.div `
         max-height: 2.5rem;
         max-width: 2.5rem;
         margin: 0 0 -0.5rem -3rem;
-    }
 
-    img:hover {
-        cursor: pointer;
+        :hover {
+            cursor: pointer;
+        }
     }
-
 `;
 
 export const ProfileArea = styled.div `

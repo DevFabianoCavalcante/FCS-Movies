@@ -1,7 +1,8 @@
 import './utils/style.css';
 import * as C from './LoginStyle';
-import { FormEvent, useState, useEffect } from 'react';
+import { FormEvent, useState, useEffect, useContext } from 'react';
 import {Routes, Route, Link, useNavigate, Navigate } from 'react-router-dom';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 
 import { LoginForm } from '../../components/LoginForm/LoginForm';
 import { RegisterForm } from '../../components/RegisterForm/Register';
@@ -10,12 +11,16 @@ import { ChangePasswordForm } from '../../components/ChangePasswordForm/ChangePa
 import LoginImage from './utils/img/ImageLoginPage.jpg';
 
 import { LoginUser, RegisterUser, ResetPassword } from '../../Auth/auth';
+import { AuthContext } from '../../Context/AuthContext';
+
 
 export const Login = () => {
     const [email, setEmail] = useState<string>('');
     const [userName, setUserName] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const navigate = useNavigate();
+
+    const {setUserProfile} = useContext(AuthContext);
 
     const directToLoginPage = () => {
         setTimeout(()=>{
@@ -42,6 +47,16 @@ export const Login = () => {
 
         if(typeAuth === 'login') {
             LoginUser({email, password, typeAuth});
+            
+            const auth = getAuth();
+            onAuthStateChanged(auth, (user) => {
+                if(user) {    
+                    setUserProfile(user);
+                } else {
+                    setUserProfile(null);
+                }
+            });
+
             navigate('/movies');
 
         } else if (typeAuth === 'register') {

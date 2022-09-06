@@ -15,7 +15,7 @@ export const HeaderCatalog = () => {
     };
 
     const logoutUser = () => {
-        setUserProfile(null);
+        setUserProfile(false);
     } 
 
     return (

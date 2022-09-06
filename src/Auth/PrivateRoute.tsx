@@ -7,8 +7,7 @@ interface Props {
 };
 
 export const PrivateRoute = ({ children }: Props) => {
-    const {userProfile} = useContext(AuthContext)
-    console.log(userProfile, 'userP');
+    const {userProfile} = useContext(AuthContext);
 
     return (
         <div>

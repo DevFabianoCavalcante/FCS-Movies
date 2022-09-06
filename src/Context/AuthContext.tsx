@@ -19,10 +19,10 @@ export const AuthProvider = (props: ComponentWithChildrenProps) => {
                 if(user) {    
                     setUserProfile(user);
                 } else {
-                    setUserProfile(null);
+                    setUserProfile(false);
                 }
             });
-        });
+        },[]);
 
     return <AuthContext.Provider value={{userProfile, setUserProfile}}> {children} </AuthContext.Provider>
 }

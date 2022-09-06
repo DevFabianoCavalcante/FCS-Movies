@@ -9,6 +9,7 @@ export const Container = styled.div `
     max-width: 150rem;
     margin: 0 auto;
     padding: 0 3rem;
+    background-color: var(--pcolor1);
 `;
 
 export const NavbarContainer = styled.div `
@@ -35,4 +36,12 @@ export const Navbar = styled.ul `
         transition: ease-in-out .5s;
         color: var(--scolor4);
     }
+`;
+
+export const MoviesArea = styled.div `
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    height: auto;
+    width: 100%;
 `;
