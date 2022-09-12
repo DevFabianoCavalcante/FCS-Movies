@@ -14,7 +14,8 @@ export const Container = styled.div `
 
 export const NavbarContainer = styled.div `
     display: flex;
-    align-items: flex-start;
+    justify-content: space-between;
+    align-items: center;
     margin: 0 0 8rem 0;
 `;
 
@@ -28,13 +29,43 @@ export const Navbar = styled.ul `
         font-weight: 400;
         color: var(--scolor8);
         margin: 0 3rem 0 0;
-    }
 
-    li:hover {
-        cursor: pointer;
-        transform: scale(1.1);
+        :hover {
+            cursor: pointer;
+            transition: ease-in-out .5s;
+            color: var(--scolor4);
+        }
+    }
+`;
+
+export const Search = styled.div `
+    input {
+        height: 4rem;
+        width: 30rem;
+        font-size: 1.6rem;
+        font-family: var(--openSans);
+        font-weight: 400;
+        color: var(--pcolor12);
+        padding: 0 1rem;
+        outline: none;
+        border-radius: 2rem;
+        border: 1px solid var(--scolor5);
+        background-color: transparent;
         transition: ease-in-out .5s;
-        color: var(--scolor4);
+
+        :focus{
+            border-color: var(--pcolor12);
+        }
+    };
+
+    img {
+        max-height: 2.5rem;
+        max-width: 2.5rem;
+        margin: 0 0 -0.5rem -3rem;
+
+        :hover {
+            cursor: pointer;
+        }
     }
 `;
 

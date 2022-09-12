@@ -29,9 +29,9 @@ export const Header = styled.header `
     }
 
     h1{
-        font-size: 4rem;
+        font-size: 6rem;
         font-family: var(--bebasNeue);
-        letter-spacing: 1rem;
+        letter-spacing: 0.5rem;
         font-weight: 400;
         color: var(--scolor5);
         transition: ease-in-out .5s;

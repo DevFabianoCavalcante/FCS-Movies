@@ -1,18 +1,31 @@
 import * as C from './catalogStyle';
-import { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState, ChangeEvent, DetailedHTMLProps, FormEvent } from 'react';
+import { useParams, useSearchParams } from 'react-router-dom';
+
 import { HeaderCatalog } from '../../components/headerCatalog/HeaderCatalog';
-import { CardFilms } from '../../components/cardFilms/cardFilms';
+import { CardMovies } from '../../components/cardMovies/cardMovies';
+
+import SearchIcon from './utils/img/searchIcon.svg';
 
 import { Api } from '../../apis/TMDB';
-import { ListContext } from '../../Context/ListMoviesContext';
 
 export const Catalog = () => {
+    const [valueSearch, setValueSearch] = useState<string>('');
     const [topRatedMovies, setTopRatedMovies] = useState([]);
     const [popularMovies, setPopularMovies] = useState([]);
-    
-    const { typeList, setTypeList } = useContext(ListContext);
+    const [searchMovie, setSearchMovie] = useState([]);
+    const [searchParams, setSearchParams] = useSearchParams();
+    const [ typeList, setTypeList ] = useState<'topRated' | 'popular'>('topRated');
 
-    const movieLinkImg = import.meta.env.VITE_IMG_URL_BASE;
+    
+    const topRatedOption = document.querySelector('#topRatedOption') as HTMLElement;
+    const popularOption = document.querySelector('#popularOption') as HTMLElement;
+
+    useEffect (()=>{
+        loadingMovies();
+    },[]);
+
+    const linkImgMovie = import.meta.env.VITE_IMG_URL_BASE;
 
     const loadingMovies = async () => {
         let jsonPopularMovies = await Api.popularMovies();
@@ -21,39 +34,83 @@ export const Catalog = () => {
         setPopularMovies(jsonPopularMovies.results);
     };
 
-    useEffect (()=>{
-        loadingMovies();
-    },[]);
+    const handleInputSearch = async (e:ChangeEvent<HTMLInputElement>) => {
+        
+        topRatedOption.removeAttribute('style');
+        popularOption.removeAttribute('style');
 
-    console.log(topRatedMovies)
+        setValueSearch(e.currentTarget.value);
+        searchParams.set('query', e.currentTarget.value);
+        setSearchParams(searchParams);
+        const nameMovie: string | null = searchParams.get('query');
+        
+        if(nameMovie !== null) {
+            let jsonSearchMovies = await Api.searchMovies(nameMovie);
+            setSearchMovie(jsonSearchMovies.results);
+        }
+    };
+
+    const handleTypeList = (e: FormEvent<HTMLLIElement>) => {
+        const elementLi = e.currentTarget;
+        const listSelected = elementLi.getAttribute('id');
+        
+        if(listSelected === 'topRatedOption') {
+            setTypeList('topRated');
+            topRatedOption.setAttribute('style', 'color: var(--scolor4);');
+            popularOption.removeAttribute('style');
+            setValueSearch('');
+            setSearchParams('');
+            
+        } else if (listSelected === 'popularOption') {
+            setTypeList('popular')
+            popularOption.setAttribute('style', 'color: var(--scolor4);');
+            topRatedOption.removeAttribute('style');
+            setValueSearch('');
+            setSearchParams('');
+        }
+    }
 
     return (
         <C.Container>
             <HeaderCatalog />
             <C.NavbarContainer>
                 <C.Navbar>
-                    <li onClick={()=> setTypeList('topRated')}>Melhores Avaliados</li>
-                    <li onClick={()=> setTypeList('popular')}>Populares</li>
+                    <li onClick={handleTypeList} id='topRatedOption'>Melhores Avaliados</li>
+                    <li onClick={handleTypeList} id='popularOption'>Populares</li>
                 </C.Navbar>
+                <C.Search>
+                    <input type='text' name='search' value={valueSearch} onChange={handleInputSearch} />
+                    <img src={SearchIcon} alt='Ícone de uma lupa' />
+                </C.Search>
             </C.NavbarContainer>
             <C.MoviesArea>
-                {typeList === 'topRated' ? topRatedMovies.map((item: any)=>(
-                    <CardFilms
-                        poster={movieLinkImg + item.poster_path}
+                {searchParams.get('query') && searchMovie.map((item: any)=>(
+                    <CardMovies 
+                        poster={linkImgMovie + item.poster_path}
                         score={item.vote_average}
                         title={item.title}
                         key={item.id}
+                        id={item.id}
                     />
-                ))
-                : popularMovies.map((item: any)=>(
-                    <CardFilms
-                        poster={movieLinkImg + item.poster_path}
+                ))}
+                {typeList === 'topRated' && valueSearch === '' && topRatedMovies.map((item: any)=>(
+                    <CardMovies
+                        poster={linkImgMovie + item.poster_path}
                         score={item.vote_average}
                         title={item.title}
                         key={item.id}
+                        id={item.id}
                     />
-                ))
-                }
+                ))}
+                {typeList === 'popular' && valueSearch === '' && popularMovies.map((item: any)=>(
+                    <CardMovies
+                        poster={linkImgMovie + item.poster_path}
+                        score={item.vote_average}
+                        title={item.title}
+                        key={item.id}
+                        id={item.id}
+                    />
+                ))}
             </C.MoviesArea>
         </C.Container>
         

@@ -1,14 +1,16 @@
-import * as C from './cardFilmsStyle';
+import * as C from './cardMoviesStyle';
 import StarIcon from './utils/img/starIcon.svg';
-import imgTeste from './utils/img/content_pic.jpg';
+import { useNavigate, useParams } from 'react-router-dom'
 
 interface Card {
     poster: string,
     title: string,
     score: string,
+    id: number,
 }
 
-export const CardFilms = ({poster, title, score}: Card) => {
+export const CardMovies = ({poster, title, score, id}: Card) => {
+    const navigate = useNavigate();
 
     const sizeTitle = (titleMovie: string) => {
         if(titleMovie.length > 25) {
@@ -18,6 +20,10 @@ export const CardFilms = ({poster, title, score}: Card) => {
             return titleMovie;
         }
     }
+
+    const handleDetailsMovie = () => {
+        navigate(`/movies:${id}`);
+    };
 
     return (
         <C.CardContainer>
@@ -31,7 +37,7 @@ export const CardFilms = ({poster, title, score}: Card) => {
                     <p>{score}</p>
                 </C.ScoreMovie>
             </C.InfoFilm>
-            <C.BtnDetails>Detalhes</C.BtnDetails>
+            <C.BtnDetails onClick={handleDetailsMovie}>Detalhes</C.BtnDetails>
         </C.CardContainer>
     );
 };

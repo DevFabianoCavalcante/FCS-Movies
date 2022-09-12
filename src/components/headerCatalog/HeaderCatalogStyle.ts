@@ -8,33 +8,25 @@ export const HeaderContainer = styled.header `
     max-width: 100%;
 `;
 
-export const Search = styled.div `
+export const Logo = styled.div `
     height: auto;
     width: auto;
 
-    input {
-        height: 4rem;
-        width: 30rem;
-        font-size: 1.6rem;
-        font-family: var(--openSans);
+    h1 {
+        font-size: 6rem;
+        font-family: var(--bebasNeue);
+        letter-spacing: 0.5rem;
         font-weight: 400;
-        color: var(--pcolor12);
-        padding: 0 1rem;
-        outline: none;
-        border-radius: 2rem;
-        border: 1px solid var(--scolor5);
-        background-color: transparent;
-    };
-
-    img {
-        max-height: 2.5rem;
-        max-width: 2.5rem;
-        margin: 0 0 -0.5rem -3rem;
+        color: var(--scolor5);
+        transition: ease-in-out .5s;
 
         :hover {
             cursor: pointer;
+            transform: scale(1.1);
         }
     }
+
+
 `;
 
 export const ProfileArea = styled.div `

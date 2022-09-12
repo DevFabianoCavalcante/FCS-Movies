@@ -63,7 +63,7 @@ export const Landing = () => {
           <Card
             backgroundGradient1='#242424'
             backgroundGradient2='#242424'
-            title='FCS Films Trial'
+            title='FCS Movies Trial'
             price='Free'
             listInfo={Text.listFreePlan}
             textBtn='Acessar'
