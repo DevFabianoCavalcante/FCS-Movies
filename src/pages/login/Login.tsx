@@ -1,8 +1,9 @@
 import './utils/style.css';
 import * as C from './LoginStyle';
-import { FormEvent, useState, useEffect, useContext } from 'react';
+import { FormEvent, useState, useEffect } from 'react';
 import {Routes, Route, Link, useNavigate, Navigate } from 'react-router-dom';
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { getAuth, signInWithEmailAndPassword, sendEmailVerification, createUserWithEmailAndPassword,updateProfile, sendPasswordResetEmail } from 'firebase/auth';
+import { app } from '../../Auth/firebaseconfig';
 
 import { LoginForm } from '../../components/LoginForm/LoginForm';
 import { RegisterForm } from '../../components/RegisterForm/Register';
@@ -10,8 +11,8 @@ import { ChangePasswordForm } from '../../components/ChangePasswordForm/ChangePa
 
 import LoginImage from './utils/img/ImageLoginPage.jpg';
 
-import { LoginUser, RegisterUser, ResetPassword } from '../../Auth/auth';
-import { AuthContext } from '../../Context/AuthContext';
+import { alertForm } from '../../helpers/alertForm';
+import { ValidateForm } from '../../helpers/ValidateForm';
 
 
 export const Login = () => {
@@ -20,13 +21,21 @@ export const Login = () => {
     const [password, setPassword] = useState<string>('');
     const navigate = useNavigate();
 
-    const {setUserProfile} = useContext(AuthContext);
+    const alertArea = document.querySelector('#alertMessageArea') as HTMLElement;
 
     const directToLoginPage = () => {
         setTimeout(()=>{
             navigate('/login');
-        }, 6000);
+        }, 5000);
     };
+
+    const clearForm = () => {
+        setTimeout(()=>{
+            setEmail('');
+            setUserName('');
+            setPassword('');
+        }, 5000);
+    }
 
     const handleEmailChange = (e:FormEvent<HTMLInputElement>) => {
         setEmail(e.currentTarget.value);
@@ -40,33 +49,67 @@ export const Login = () => {
         setPassword(e.currentTarget.value);
     };
 
-    const handleSubmit = (e: FormEvent) => {
+    const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
 
         const typeAuth = (e.currentTarget.getAttribute('data-auth-type'));
+        const isValid = ValidateForm({ email, password, typeAuth });
+        const auth = getAuth();
 
         if(typeAuth === 'login') {
-            LoginUser({email, password, typeAuth});
-            
-            const auth = getAuth();
-            onAuthStateChanged(auth, (user) => {
-                if(user) {    
-                    setUserProfile(user);
-                } else {
-                    setUserProfile(null);
-                }
-            });
-
-            navigate('/movies');
-
+            if(isValid) {
+                await signInWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    const user = userCredential.user;
+                    navigate('/movies');
+                    !user.emailVerified ?? sendEmailVerification(user);
+                })
+                .catch((error) => {
+                    const errorMessage = error.message;
+                    console.log(errorMessage);
+                    alertArea.setAttribute('data-message', 'Erro ao fazer login, tente novamente');
+                    alertForm(alertArea);
+                });
+            }
         } else if (typeAuth === 'register') {
-            RegisterUser({email, password, userName, typeAuth});
-
+            if(isValid) {
+                await createUserWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    const user = userCredential.user;
+                    updateProfile(user, {displayName: userName});
+                    sendEmailVerification(user);
+                    alertArea.setAttribute('data-message', 'Usuário criado com sucesso, aguarde...');
+                    alertForm(alertArea);
+                    directToLoginPage();
+                    clearForm();
+                })
+                .catch((error) => {
+                    const errorMessage = error.message;
+                    console.log(errorMessage);
+                    alertArea.setAttribute('data-message', 'Erro ao criar usuário, tente novamente');
+                    alertForm(alertArea);
+                });
+            }
         } else if (typeAuth === 'changePassword') {
-            ResetPassword({ email, typeAuth });
-            directToLoginPage();
+            if(isValid) {
+                await sendPasswordResetEmail(auth, email)
+                .then(() => {
+                    alertArea.setAttribute('data-message', 'E-mail Enviado, aguarde...');
+                    alertForm(alertArea);
+                    directToLoginPage();
+                    clearForm();
+                })
+                .catch((error) => {
+                    const errorMessage = error.message;
+                    console.log(errorMessage);
+                    alertArea.setAttribute('data-message', 'Não há usuário cadastrado com esse e-mail');
+                    alertForm(alertArea);
+                });
+            }
         }
     };
+
+    app;
 
     return (
         <C.ContainerPage>

@@ -2,5 +2,5 @@ export interface UserType {
     email: string,
     password?: string,
     userName?: string,
-    typeAuth: string,
+    typeAuth: string | null,
 };
