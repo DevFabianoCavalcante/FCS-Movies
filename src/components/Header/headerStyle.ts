@@ -7,6 +7,7 @@ export const Header = styled.header `
     height: 12rem;
     max-width: 120rem;
     margin: 0 auto;
+    padding: 0 2rem;
 
     button {
         height: 6rem;
@@ -40,5 +41,18 @@ export const Header = styled.header `
     h1:hover {
         cursor: pointer;
         transform: scale(1.1);
+    }
+
+    @media(max-width: 500px) {
+
+        h1 {
+            font-size: 3rem;
+        }
+
+        button {
+            height: 4rem;
+            width: 8rem;
+            font-size: 2.7rem;
+        }
     }
 `;

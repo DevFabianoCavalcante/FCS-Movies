@@ -3,12 +3,16 @@ import styled from "styled-components";
 export const CardContainer = styled.div `
     display: flex;
     flex-flow: column;
-    padding: 1rem 1.9rem 1rem 1.9rem;
+    padding: 1rem 1.9rem;
     height: 50rem;
     width: 34.7rem;
     background-color: var(--pcolor3);
     border-radius: 1rem;
     margin: 0 5rem 8rem 5rem;
+
+    @media(max-width: 380px) {
+        width: 33rem;
+    }
 `;
 
 export const ImageContainer = styled.div `
@@ -20,6 +24,10 @@ export const ImageContainer = styled.div `
         height: 100%;
         width: 100%;
         border-radius: 1rem;
+    }
+
+    @media(max-width: 380px) {
+        width: 29rem;
     }
 `;
 

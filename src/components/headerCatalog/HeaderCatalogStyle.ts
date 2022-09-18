@@ -26,6 +26,11 @@ export const Logo = styled.div `
         }
     }
 
+    @media(max-width: 575px) {
+        h1 {
+            font-size: 3.5rem;
+        }
+    }
 
 `;
 
@@ -45,12 +50,21 @@ export const ProfileArea = styled.div `
     button {
         height: 2rem;
         width: auto;
-        font-size: 1.6rem;
+        font-size: 1.5rem;
         color: var(--pcolor12);
         border: none;
         outline: none;
         background-color: transparent;
         cursor: pointer;
+    }
+
+    @media(max-width: 575px) {
+        
+        h1 {
+            font-size: 1.5rem;
+            width: 20rem;
+            text-align: right;
+        }
     }
 `;
 

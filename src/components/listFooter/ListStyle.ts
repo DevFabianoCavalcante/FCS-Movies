@@ -14,4 +14,10 @@ export const List = styled.ul `
             color: var(--scolor5);
         }
     }
+
+    @media(max-width: 900px) {
+        li {
+            font-size: 1.3rem;
+        }
+    }
 `;

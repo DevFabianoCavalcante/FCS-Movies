@@ -17,6 +17,11 @@ export const NavbarContainer = styled.div `
     justify-content: space-between;
     align-items: center;
     margin: 0 0 8rem 0;
+
+    @media(max-width: 680px) {
+        flex-direction: column-reverse;
+        margin: 4rem 0;
+    }
 `;
 
 export const Navbar = styled.ul `
@@ -34,6 +39,15 @@ export const Navbar = styled.ul `
             cursor: pointer;
             transition: ease-in-out .5s;
             color: var(--scolor4);
+        }
+    }
+
+    @media(max-width: 680px) {
+        flex-flow: row;
+        
+        li {
+            font-size: 1.5rem;
+            margin: 2.5rem 2rem 0 0;
         }
     }
 `;

@@ -48,4 +48,25 @@ export const InitialContent = styled.div `
         transform: translateX(2rem);
         cursor: pointer;
     }
+
+    @media(max-width: 900px) {
+        top: 25rem;
+
+        h1 {
+            font-size: 3rem;
+            max-width: 50rem;
+            margin: 0 auto 10rem auto;
+            padding: 0 1rem;
+        }
+
+        p {
+            font-size: 2.5rem;
+            letter-spacing: 0rem;
+        }
+
+        div img {
+            height: 6rem;
+            width: 6rem;
+        }
+    }
 `;

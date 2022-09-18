@@ -2,15 +2,16 @@ import { FormEvent, useContext, useState } from 'react';
 
 import * as C from './HeaderCatalogStyle';
 import { AuthContext } from '../../Context/AuthContext';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export const HeaderCatalog = () => {
-    const {userProfile, setUserProfile} = useContext(AuthContext);
+    const {userProfile} = useContext(AuthContext);
+    const navigate = useNavigate();
 
     const nameUser = userProfile.displayName.split(' ')[0];
 
     const logoutUser = () => {
-        setUserProfile(false);
+        navigate('/login');
     } 
 
     return (

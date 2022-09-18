@@ -2,7 +2,7 @@ import './utils/style.css';
 import * as C from './LoginStyle';
 import { FormEvent, useState, useEffect } from 'react';
 import {Routes, Route, Link, useNavigate, Navigate } from 'react-router-dom';
-import { getAuth, signInWithEmailAndPassword, sendEmailVerification, createUserWithEmailAndPassword,updateProfile, sendPasswordResetEmail } from 'firebase/auth';
+import { getAuth, signInWithEmailAndPassword, sendEmailVerification, createUserWithEmailAndPassword,updateProfile, sendPasswordResetEmail, setPersistence, browserSessionPersistence } from 'firebase/auth';
 import { app } from '../../Auth/firebaseconfig';
 
 import { LoginForm } from '../../components/LoginForm/LoginForm';
@@ -58,17 +58,23 @@ export const Login = () => {
 
         if(typeAuth === 'login') {
             if(isValid) {
-                await signInWithEmailAndPassword(auth, email, password)
-                .then((userCredential) => {
-                    const user = userCredential.user;
-                    navigate('/movies');
-                    !user.emailVerified ?? sendEmailVerification(user);
+                await setPersistence(auth, browserSessionPersistence)
+                .then(() => {
+                    signInWithEmailAndPassword(auth, email, password)
+                    .then((userCredential) => {
+                            const user = userCredential.user;
+                            navigate('/movies');
+                            !user.emailVerified ?? sendEmailVerification(user);
+                    })
+                    .catch((error) => {
+                        const errorMessage = error.message;
+                        console.log(errorMessage);
+                        alertArea.setAttribute('data-message', 'Erro ao fazer login, tente novamente');
+                        alertForm(alertArea);
+                    });
                 })
                 .catch((error) => {
                     const errorMessage = error.message;
-                    console.log(errorMessage);
-                    alertArea.setAttribute('data-message', 'Erro ao fazer login, tente novamente');
-                    alertForm(alertArea);
                 });
             }
         } else if (typeAuth === 'register') {

@@ -18,6 +18,10 @@ export const ImageArea = styled.div<PropImage> `
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+
+    @media(max-width: 650px) {
+        display: none;
+    }
 `;
 
 export const LoginArea = styled.div `

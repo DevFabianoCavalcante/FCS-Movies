@@ -13,6 +13,11 @@ export const ContainerCard = styled.div<PropColor>`
     padding: 2rem 2rem 4rem 2rem;
     background: linear-gradient(${prop => prop.backgroundGradient1}, ${prop=> prop.backgroundGradient2} );
     border-radius: 2rem;
+
+    @media(max-width:900px) {
+        width: 28rem;
+        margin: 0 0 4rem 0;
+    }
 `;
 
 

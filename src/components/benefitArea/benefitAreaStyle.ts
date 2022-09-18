@@ -13,6 +13,13 @@ export const Container = styled.section<Flex> `
     height: 35rem;
     max-width: 120rem;
     margin: 25rem auto 0 auto;
+    padding: 0 2rem;
+
+    @media(max-width: 900px) {
+        flex-direction: row;
+        height: auto;
+        margin: 5rem auto 10rem auto;
+    }
 `;
 
 interface TextDirection {
@@ -41,6 +48,22 @@ export const Content = styled.div<TextDirection> `
         color: var(--pcolor12);
         max-width: 55rem;
     }
+
+    @media(max-width: 900px) {
+        margin: 0 auto 3rem auto;
+        padding: 0 1rem;
+
+        h1 {
+            font-size: 3.8rem;
+            margin: 0;
+            text-align: left;
+        }
+
+        p {
+            font-size: 2rem;
+            text-align: left;
+        }
+    }
 `;
 
 export const ContainerImage = styled.div `
@@ -50,5 +73,9 @@ export const ContainerImage = styled.div `
     img {
         height: 100%;
         width: 100%;
+    }
+
+    @media(max-width: 900px) {
+        margin: 0 auto 2rem auto;
     }
 `;
