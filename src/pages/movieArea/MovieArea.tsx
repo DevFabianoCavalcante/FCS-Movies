@@ -60,10 +60,10 @@ export const MovieArea = () => {
                 <C.MovieDetails>
                     <C.ItemDescriptionMovie fontText='2.8rem' colorText='var(--scolor8)' weightText='600'>
                         <img src={MovieIcon} alt='Ícone filme' title='Nome do filme' />
-                        <p>{movie.title}</p>
+                        <p className='title-movie'>{movie.title}</p>
                     </C.ItemDescriptionMovie>
                     <C.ItemDescriptionMovie fontText='2rem' colorText='var(--pcolor9)' weightText='400'>
-                        <img src={ResumeIcon} alt='Ícone sinopse' title='Sinopse' />
+                        <img src={ResumeIcon} alt='Ícone sinopse' title='Sinopse' className='resume-icon' />
                         <p>{movie.overview}</p>
                     </C.ItemDescriptionMovie>
 
@@ -85,8 +85,8 @@ export const MovieArea = () => {
                 <C.MoviePoster>
                     <img src={linkImgMovie + movie.poster_path} alt={movie.overview} />
                 </C.MoviePoster>
-                <C.BtnWatch>Assistir</C.BtnWatch>
             </C.ContainerMovieInfo>
+            <C.BtnWatch>Assistir</C.BtnWatch>
             <C.TitleExtraSection>Filmes semelhantes</C.TitleExtraSection>
             <MoviesArea>
                 {similarMovies && similarMovies.map((movie: any)=>(

@@ -11,7 +11,7 @@ export const CardContainer = styled.div `
     margin: 0 5rem 8rem 5rem;
 
     @media(max-width: 380px) {
-        width: 33rem;
+        width: 31rem;
     }
 `;
 
@@ -27,7 +27,7 @@ export const ImageContainer = styled.div `
     }
 
     @media(max-width: 380px) {
-        width: 29rem;
+        width: 27rem;
     }
 `;
 

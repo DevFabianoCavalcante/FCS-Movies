@@ -80,7 +80,8 @@ export const FormLogin = styled.form `
         height: 4.7rem;
         width: 17.9rem;
         border-radius: 2rem;
-        background-color: var(--scolor5);
+        border: none;
+        background: linear-gradient(var(--scolor4), var(--scolor2));
         font-size: 2rem;
         font-family: var(--poppins);
         font-weight: 600;

@@ -4,6 +4,7 @@ export const ContainerPage = styled.div `
     margin: 0 auto;
     max-width: 150rem;
     background-color: var(--pcolor1);
+    padding: 0 3rem;
 `;
 
 export const ContainerMovieInfo = styled.div `
@@ -14,6 +15,13 @@ export const ContainerMovieInfo = styled.div `
     height: 60.7rem;
     max-width: 120rem;
     margin: 8rem auto 0 auto;
+
+    @media(max-width: 900px) {
+        height: auto;
+        width: 100%;
+        flex-flow: column-reverse;
+        margin: 5rem auto 0 auto;
+    }
 `;
 
 export const MovieDetails = styled.div `
@@ -22,6 +30,10 @@ export const MovieDetails = styled.div `
     justify-content: flex-start;
     align-items: center;
     width: 70%;
+
+    @media(max-width: 900px) {
+        width: 100%;
+    }
 `;
 
 interface PropsDescription {
@@ -49,6 +61,21 @@ export const ItemDescriptionMovie = styled.div<PropsDescription> `
         font-weight: ${props => props.weightText};
         color: ${props => props.colorText};
     }
+
+    @media(max-width: 900px) {
+
+        p {
+            font-size: 1.5rem;
+        }
+
+        .title-movie {
+            font-size: ${props => props.fontText};
+        }
+
+        .resume-icon {
+            display: none;
+        }
+    }
 `;
 
 export const MoviePoster = styled.div `
@@ -62,9 +89,19 @@ export const MoviePoster = styled.div `
         width: 100%;
         object-fit: contain;
     }
+
+    @media(max-width: 900px) {
+        height: 40rem;
+        max-width: 120rem;
+        margin: 0 0 2.5rem 0;
+    }
 `;
 
 export const BtnWatch = styled.button `
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
     height: 5rem;
     width: 20rem;
     background: linear-gradient(var(--scolor4), var(--scolor2));
@@ -81,6 +118,10 @@ export const BtnWatch = styled.button `
         cursor: pointer;
         transform: scale(1.1);
     }
+
+    @media(max-width: 900px) {
+        margin: 1rem auto 0 auto;
+    }
 `;
 
 export const TitleExtraSection = styled.h2 `
@@ -91,6 +132,10 @@ export const TitleExtraSection = styled.h2 `
     font-family: var(--openSans);
     color: var(--scolor8);
     margin: 5rem 0 3rem 0;
+
+    @media(max-width: 900px) {
+        margin: 8rem 0 3rem 0;
+    }
 `;
 
 export const LoadingMovie = styled.div `
@@ -107,5 +152,11 @@ export const LoadingMovie = styled.div `
         color: var(--scolor5);
         letter-spacing: 0.5rem;
         margin: 0 0 6rem 0;
+    }
+
+    @media(max-width: 900px) {
+        h1{
+            font-size: 4rem;
+        }
     }
 `;
