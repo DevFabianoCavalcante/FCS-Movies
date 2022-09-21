@@ -2,7 +2,7 @@
 
 Projeto pessoal de um serviço streaming com landing page de captura, aba do usuário (login, criar conta, recuperar senha) e aba do serviço com catálogo de filmes.
 
-## :hammer_and_wrench: Em construção
+## :heavy_check_mark: Concluído
 
 ### :clipboard: Pré requisitos
 
@@ -10,11 +10,23 @@ Para a utilização é necessário somente um navegador web e conexão com a int
 
 ### :rocket: Como usar
 
-- Acesse: 
+- Acesse: https://fcsmovies.netlify.app/
 - Clique para acessar o plano FCS Films Trial;
 - Crie uma conta e logo após isso faça o login;
 
-### :desktop_computer: :pen: Tecnologias usadas
+### :camera: Capturas de tela
+
+![tela inicial](https://iili.io/ibLMes.png)
+
+![tela de login](https://iili.io/ibmFmF.png)
+
+![tela de registro](https://iili.io/ibmG7S.png)
+
+![tela do catálogo](https://iili.io/ibpCu9.png)
+
+![tela de login](https://iili.io/ibpZMb.png)
+
+### :desktop_computer: :pen: Construído com
 
 - [ReactJs](https://pt-br.reactjs.org/docs/getting-started.html)
     - Hooks (useState, useEffect)
@@ -25,11 +37,13 @@ Para a utilização é necessário somente um navegador web e conexão com a int
     - Routes
     - useNavigate
     - Navigate
+    - Link
+    - HashRouter
 - [Styled Components](https://styled-components.com/docs)
 - [Firebase Authentication](https://firebase.google.com/docs/auth)
 - [The Movie DB](https://developers.themoviedb.org/3/getting-started/introduction)
 
-### Autor
+### :fountain_pen: Autor
 
 <a href="https://www.linkedin.com/in/fabiano-cavalcante-99811221a/">Fabiano Cavalcante</a>
 
