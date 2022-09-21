@@ -21,7 +21,7 @@ export const InitialContent = styled.div `
         font-family: var(--bebasNeue);
         color: var(--pcolor12);
         max-width: 100rem;
-        letter-spacing: 1rem;
+        letter-spacing: 0.5rem;
         margin: 0 auto 20rem auto;
         text-align: center;
     }
@@ -34,7 +34,7 @@ export const InitialContent = styled.div `
         font-size: 6.4rem;
         font-family: var(--bebasNeue);
         color: var(--pcolor12);
-        letter-spacing: 1rem;
+        letter-spacing: 0.5rem;
     }
 
     div img {

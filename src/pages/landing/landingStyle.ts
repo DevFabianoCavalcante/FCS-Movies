@@ -59,6 +59,7 @@ export const TitlePlans = styled.h1 `
 
     @media(max-width: 900px) {
         padding: 0 0 0 3rem;
+        margin: 0 0 1rem 0;
     }
 `;
 

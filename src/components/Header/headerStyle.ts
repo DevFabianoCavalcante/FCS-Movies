@@ -52,7 +52,7 @@ export const Header = styled.header `
         button {
             height: 4rem;
             width: 8rem;
-            font-size: 2.7rem;
+            font-size: 2.5rem;
         }
     }
 `;
