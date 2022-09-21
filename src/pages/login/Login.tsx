@@ -38,7 +38,7 @@ export const Login = () => {
     }
 
     const handleEmailChange = (e:FormEvent<HTMLInputElement>) => {
-        setEmail(e.currentTarget.value);
+        setEmail(e.currentTarget.value.trim());
     };
 
     const handleNameChange = (e:FormEvent<HTMLInputElement>) => {
