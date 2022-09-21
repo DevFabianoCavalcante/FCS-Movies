@@ -5,7 +5,8 @@ export const ArrowPage = () => {
 
 
     return (
-        <></>
-        //elaborar código da seta levando para o topo da página
+        <C.ContainerArrow onClick={()=> window.scroll(0, 0)}>
+            <img src={Arrow} alt='Ícone que direciona para o topo da página'/>
+        </C.ContainerArrow>
     );
 };

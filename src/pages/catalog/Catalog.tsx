@@ -4,6 +4,7 @@ import { useParams, useSearchParams } from 'react-router-dom';
 
 import { HeaderCatalog } from '../../components/headerCatalog/HeaderCatalog';
 import { CardMovies } from '../../components/cardMovies/cardMovies';
+import { ArrowPage } from '../../components/arrowToTopPage/arrow';
 
 import SearchIcon from './utils/img/searchIcon.svg';
 
@@ -112,6 +113,7 @@ export const Catalog = () => {
                     />
                 ))}
             </C.MoviesArea>
+            <ArrowPage />
         </C.Container>
         
     );

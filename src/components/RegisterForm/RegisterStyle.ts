@@ -6,6 +6,11 @@ export const RegisterArea = styled.div `
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    @media(max-width: 900px) {
+        justify-content: flex-start;
+        margin: 6rem 0 0 0;
+    }
 `;
 
 export const Title = styled.h1 `
