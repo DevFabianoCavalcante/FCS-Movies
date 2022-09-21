@@ -33,12 +33,13 @@ Para a utilização é necessário somente um navegador web e conexão com a int
     - ContextApi (useContext, createContext)
 - [Typescript](https://www.typescriptlang.org/docs/)
 - [React Router](https://reactrouter.com/en/main/getting-started/tutorial)
+    - HashRouter
     - Route
     - Routes
     - useNavigate
+    - useParams
     - Navigate
     - Link
-    - HashRouter
 - [Styled Components](https://styled-components.com/docs)
 - [Firebase Authentication](https://firebase.google.com/docs/auth)
 - [The Movie DB](https://developers.themoviedb.org/3/getting-started/introduction)
