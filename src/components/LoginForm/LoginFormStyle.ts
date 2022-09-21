@@ -9,7 +9,9 @@ export const LoginArea = styled.div `
 
     @media(max-width: 900px) {
         justify-content: flex-start;
-        margin: 6rem 0 0 0;
+        margin: 3rem 0 0 0;
+        height: 100%;
+        overflow-y: none;
     }
 `;
 
