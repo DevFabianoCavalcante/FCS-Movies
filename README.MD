@@ -43,6 +43,7 @@ Para a utilização é necessário somente um navegador web e conexão com a int
 - [Styled Components](https://styled-components.com/docs)
 - [Firebase Authentication](https://firebase.google.com/docs/auth)
 - [The Movie DB](https://developers.themoviedb.org/3/getting-started/introduction)
+- [Axios](https://axios-http.com/ptbr/docs/intro)
 
 ### :fountain_pen: Autor
 
