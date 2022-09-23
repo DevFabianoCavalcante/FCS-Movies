@@ -1,6 +1,6 @@
-# FCS Films :film_strip:
+# FCS Movies :film_strip:
 
-Projeto pessoal de um serviço streaming com landing page de captura, aba do usuário (login, criar conta, recuperar senha) e aba do serviço com catálogo de filmes.
+Projeto pessoal de um serviço streaming com landing page de captura, aba do usuário (login, criar conta, recuperar senha) e aba do serviço com catálogo de filmes requisitado via API.
 
 ## :heavy_check_mark: Concluído
 
