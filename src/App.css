@@ -1,0 +1,71 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --pcolor1: #131313;
+  --pcolor2: #242424;
+  --pcolor3: #363636;
+  --pcolor8: #8F8F8F;
+  --pcolor9: #B3B3B3;
+  --pcolor10: #D6D6D6;
+  --pcolor11: #E6E6E6;
+  --pcolor12: #F2F2F2;
+  --scolor1: #FEE100;
+  --scolor2: #FFFF00;
+  --scolor3: #5F5400;
+  --gradient: #B6A100, #FFFF00;
+  --poppins: 'Poppins', sans-serif;
+  --bebasNeue: 'Bebas Neue', cursive;
+  --nunitoSans: "Nunito Sans", sans-serif;
+  --play: "Play", sans-serif;
+}
+
+html {
+  font-size: 10px;
+  background-color: var(--pcolor1);
+  scroll-behavior: smooth;
+}
+
+ul, li {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+@keyframes transitionAnimationX {
+  from {
+      opacity: 0;
+      transform: translateX(-200px);
+  }
+
+  to {
+      opacity: 1;
+  }
+}
+
+@keyframes transitionAnimationY {
+  from {
+      opacity: 0;
+      transform: translateY(200px);
+  }
+
+  to {
+      opacity: 1;
+  }
+}
+
+.transition--animationX {
+  animation-name: transitionAnimationX;
+  animation-duration: 1.5s;
+}
+
+.transition--animationY {
+  animation-name: transitionAnimationY;
+  animation-duration: 1.5s;
+}
+
