@@ -1,6 +1,8 @@
 import React from 'react';
 import * as C from '../RegisterForm/RegisterStyle';
-import { AuthProps } from '../../interface/AuthProps'
+import { AuthProps } from '../../interface/AuthProps';
+
+import { Button } from '../Button/Button';
 
 
 export const RegisterForm = ({handleSubmit, handleEmailChange, handleNameChange, handlePasswordChange, email, password, userName}: AuthProps) => {
@@ -23,7 +25,9 @@ export const RegisterForm = ({handleSubmit, handleEmailChange, handleNameChange,
                     Senha
                     <input type='password' name='senha' value={password} onChange={handlePasswordChange} autoComplete='off' />
                 </label>
-                <button type='submit'>Criar Conta</button>
+                <Button typeBtn='submit' border={false} color={'#5F5400'} fontSize={'2rem'} fontWeight={'600'} height={'4.5rem'} width={'18rem'} background={'#B6A100, #FFFF00'} isGradient={true}>
+                    Criar Conta
+                </Button>
             </C.FormRegister>    
         </C.RegisterArea>
     )

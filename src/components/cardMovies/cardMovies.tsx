@@ -1,6 +1,7 @@
 import * as C from './cardMoviesStyle';
 import StarIcon from './utils/img/starIcon.svg';
-import { useNavigate, useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom';
+import { Button } from '../Button/Button';
 
 interface Card {
     poster: string,
@@ -37,7 +38,7 @@ export const CardMovies = ({poster, title, score, id}: Card) => {
                     <p>{score}</p>
                 </C.ScoreMovie>
             </C.InfoFilm>
-            <C.BtnDetails onClick={handleDetailsMovie}>Detalhes</C.BtnDetails>
+            <Button border={false} color={'#5F5400'} fontSize={'2.4rem'} fontWeight={'600'} height={'4.5rem'} width={'20rem'} background={'#B6A100, #FFFF00'} isGradient={true} onClickEvent={handleDetailsMovie}>Detalhes</Button>
         </C.CardContainer>
     );
 };

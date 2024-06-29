@@ -6,11 +6,11 @@ import { MoviesArea } from '../catalog/catalogStyle';
 import { CardMovies } from '../../components/cardMovies/cardMovies';
 import { ArrowPage } from '../../components/arrowToTopPage/arrow';
 
-import CalendarIcon from './utils/img/iconCalendar.svg';
-import DurationIcon from './utils/img/iconDuration.svg';
-import MovieIcon from './utils/img/iconMovie.svg';
-import ResumeIcon from './utils/img/iconSinopse.svg';
-import StarIcon from './utils/img/iconStar.svg';
+import iconCalendar from './utils/img/iconCalendar.svg';
+import iconDuration from './utils/img/iconDuration.svg';
+import iconMovie from './utils/img/iconMovie.svg';
+import iconSinopse from './utils/img/iconSinopse.svg';
+import iconStar from './utils/img/iconStar.svg';
 
 import { Api } from '../../apis/TMDB';
 
@@ -59,27 +59,27 @@ export const MovieArea = () => {
             <HeaderCatalog />
             <C.ContainerMovieInfo>
                 <C.MovieDetails>
-                    <C.ItemDescriptionMovie fontText='2.8rem' colorText='var(--scolor8)' weightText='600'>
-                        <img src={MovieIcon} alt='Ícone filme' title='Nome do filme' />
+                    <C.ItemDescriptionMovie fontText='2.8rem' colorText='var(--scolor1)' weightText='600'>
+                        <img src={iconMovie} alt='Ícone filme' title='Nome do filme' />
                         <p className='title-movie'>{movie.title}</p>
                     </C.ItemDescriptionMovie>
                     <C.ItemDescriptionMovie fontText='2rem' colorText='var(--pcolor9)' weightText='400'>
-                        <img src={ResumeIcon} alt='Ícone sinopse' title='Sinopse' className='resume-icon' />
+                        <img src={iconSinopse} alt='Ícone sinopse' title='Sinopse' className='resume-icon' />
                         <p>{movie.overview}</p>
                     </C.ItemDescriptionMovie>
 
                     <C.ItemDescriptionMovie fontText='2rem' colorText='var(--pcolor9)' weightText='400'>
-                        <img src={DurationIcon} alt='Ícone de duração' title='duração' />
+                        <img src={iconDuration} alt='Ícone de duração' title='duração' />
                         <p>{`${movie.runtime} minutos`}</p>
                     </C.ItemDescriptionMovie>
 
                     <C.ItemDescriptionMovie fontText='2rem' colorText='var(--pcolor9)' weightText='400'>
-                        <img src={CalendarIcon} alt='Ícone calendário' title='Ano de lançamento' />
+                        <img src={iconCalendar} alt='Ícone calendário' title='Ano de lançamento' />
                         <p>{releaseDate}</p>
                     </C.ItemDescriptionMovie>
 
                     <C.ItemDescriptionMovie fontText='2rem' colorText='var(--pcolor9)' weightText='400'>
-                        <img src={StarIcon} alt='ïcone de nota' title='Pontuação' />
+                        <img src={iconStar} alt='ïcone de nota' title='Pontuação' />
                         <p>{movie.vote_average}</p>
                     </C.ItemDescriptionMovie>
                 </C.MovieDetails>

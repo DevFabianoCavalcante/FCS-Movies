@@ -17,7 +17,7 @@ export const Logo = styled.div `
         font-family: var(--bebasNeue);
         letter-spacing: 0.5rem;
         font-weight: 400;
-        color: var(--scolor5);
+        color: var(--scolor1);
         transition: ease-in-out .5s;
 
         :hover {
@@ -38,12 +38,12 @@ export const ProfileArea = styled.div `
     display: flex;
     flex-flow: column;
     align-items: flex-end;
-    font-family: var(--openSans);
+    font-family: var(--nunitoSans);
     font-weight: 400;
 
     h1 {
         font-size: 1.8rem;
-        color: var(--scolor8);
+        color: var(--scolor1);
         margin: 0 0 0.5rem 0;
     }
 

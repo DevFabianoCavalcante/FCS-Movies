@@ -4,7 +4,7 @@ const alertForm = (inputArea: HTMLElement) => {
     inputArea.classList.toggle('alert');
     setTimeout(()=> {
         inputArea.classList.toggle('alert');
-    }, 5000);
+    }, 2000);
 };
 
 export const ValidateForm = ({email, password, userName, typeAuth}: UserType): boolean => {

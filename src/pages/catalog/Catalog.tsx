@@ -57,14 +57,14 @@ export const Catalog = () => {
         
         if(listSelected === 'topRatedOption') {
             setTypeList('topRated');
-            topRatedOption.setAttribute('style', 'color: var(--scolor4);');
+            topRatedOption.setAttribute('style', 'color: var(--pcolor10);');
             popularOption.removeAttribute('style');
             setValueSearch('');
             setSearchParams('');
             
         } else if (listSelected === 'popularOption') {
             setTypeList('popular')
-            popularOption.setAttribute('style', 'color: var(--scolor4);');
+            popularOption.setAttribute('style', 'color: var(--pcolor10);');
             topRatedOption.removeAttribute('style');
             setValueSearch('');
             setSearchParams('');
@@ -76,7 +76,7 @@ export const Catalog = () => {
             <HeaderCatalog />
             <C.NavbarContainer>
                 <C.Navbar>
-                    <li onClick={handleTypeList} id='topRatedOption' style={{color: 'var(--scolor4)'}}>Melhores Avaliados</li>
+                    <li onClick={handleTypeList} id='topRatedOption'>Melhores Avaliados</li>
                     <li onClick={handleTypeList} id='popularOption'>Populares</li>
                 </C.Navbar>
                 <C.Search>

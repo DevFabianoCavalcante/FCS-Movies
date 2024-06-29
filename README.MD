@@ -1,4 +1,5 @@
 # FCS Movies :film_strip:
+https://img.shields.io/badge/vers%C3%A3o-1.1.1-%23FFFF00
 
 Projeto pessoal de um serviço streaming com landing page de captura, aba do usuário (login, criar conta, recuperar senha) e aba do serviço com catálogo de filmes requisitado via API.
 
@@ -11,20 +12,18 @@ Para a utilização é necessário somente um navegador web e conexão com a int
 ### :rocket: Como usar
 
 - Acesse: https://fcsmovies.netlify.app/
-- Clique para acessar o plano FCS Films Trial;
+- Clique para acessar qualquer um dos planos;
 - Crie uma conta e logo após isso faça o login;
 
 ### :camera: Capturas de tela
 
-![tela inicial](https://iili.io/ibLMes.png)
+![tela inicial](https://i.ibb.co/4RxNkkn/tela-inicial.png)
 
-![tela de login](https://iili.io/ibmFmF.png)
+![tela de login](https://i.ibb.co/nP7LHd3/tela-login.png)
 
-![tela de registro](https://iili.io/ibmG7S.png)
+![tela do catálogo](https://i.ibb.co/b62mwpL/tela-catalogo.png)
 
-![tela do catálogo](https://iili.io/ibpCu9.png)
-
-![tela de login](https://iili.io/ibpZMb.png)
+![tela de detalhes do filme](https://i.ibb.co/FKYcJTY/tela-de-detalhes-do-filme.png)
 
 ### :desktop_computer: :pen: Construído com
 

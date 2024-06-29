@@ -19,7 +19,7 @@ export const ImageArea = styled.div<PropImage> `
     background-position: center;
     background-repeat: no-repeat;
 
-    @media(max-width: 650px) {
+    @media(max-width: 930px) {
         display: none;
     }
 `;
@@ -30,4 +30,9 @@ export const LoginArea = styled.div `
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    @media(max-width: 600px) {
+        margin-top: 3rem;
+        justify-content: flex-start;
+    }
 `;

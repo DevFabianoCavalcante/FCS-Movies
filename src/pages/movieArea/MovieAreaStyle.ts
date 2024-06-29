@@ -57,7 +57,7 @@ export const ItemDescriptionMovie = styled.div<PropsDescription> `
 
     p {
         font-size: ${props => props.fontText};
-        font-family: var(--openSans);
+        font-family: var(--nunitoSans);
         font-weight: ${props => props.weightText};
         color: ${props => props.colorText};
     }
@@ -129,8 +129,8 @@ export const TitleExtraSection = styled.h2 `
     align-self: flex-start;
     font-size: 2.8rem;
     font-weight: 600;
-    font-family: var(--openSans);
-    color: var(--scolor8);
+    font-family: var(--nunitoSans);
+    color: var(--scolor1);
     margin: 5rem 0 3rem 0;
 
     @media(max-width: 900px) {
@@ -149,7 +149,7 @@ export const LoadingMovie = styled.div `
     h1 {
         font-size: 8rem;
         font-family: var(--bebasNeue);
-        color: var(--scolor5);
+        color: var(--scolor1);
         letter-spacing: 0.5rem;
         margin: 0 0 6rem 0;
     }

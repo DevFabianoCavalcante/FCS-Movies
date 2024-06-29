@@ -30,16 +30,11 @@ export const Navbar = styled.ul `
 
     li {
         font-size: 1.8rem;
-        font-family: var(--openSans);
+        font-family: var(--nunitoSans);
         font-weight: 400;
-        color: var(--scolor8);
+        color: var(--scolor1);
         margin: 0 3rem 0 0;
-
-        :hover {
-            cursor: pointer;
-            transition: ease-in-out .5s;
-            color: var(--scolor4);
-        }
+        cursor: pointer;
     }
 
     @media(max-width: 680px) {
@@ -57,13 +52,13 @@ export const Search = styled.div `
         height: 4rem;
         width: 30rem;
         font-size: 1.6rem;
-        font-family: var(--openSans);
+        font-family: var(--nunitoSans);
         font-weight: 400;
         color: var(--pcolor12);
         padding: 0 1rem;
         outline: none;
         border-radius: 2rem;
-        border: 1px solid var(--scolor5);
+        border: 1px solid var(--scolor1);
         background-color: transparent;
         transition: ease-in-out .5s;
 
