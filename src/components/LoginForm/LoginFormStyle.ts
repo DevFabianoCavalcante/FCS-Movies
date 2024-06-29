@@ -89,6 +89,7 @@ export const FormLogin = styled.form `
         justify-content: center;
         align-items: center;
         margin: 4rem auto 6rem auto;
+        width: 10rem;
     }
 
     @media(max-width: 370px) {
