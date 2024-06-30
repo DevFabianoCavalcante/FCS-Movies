@@ -1,5 +1,5 @@
 # FCS Movies :film_strip:
-https://img.shields.io/badge/vers%C3%A3o-1.1.1-%23FFFF00
+https://img.shields.io/badge/vers%C3%A3o-1.2.1-%23FFFF00
 
 Projeto pessoal de um serviço streaming com landing page de captura, aba do usuário (login, criar conta, recuperar senha) e aba do serviço com catálogo de filmes requisitado via API.
 

@@ -22,9 +22,6 @@ import useFetch from '../../Hooks/useFetch';
 
 export const Landing = () => {
   const navigate = useNavigate();
-
-  
-  useFetch('/search/movie?api_key=5382eef79738bd0041e1d109b40c498c&query=matrix+reloaded')
   
   const readToRef = React.useRef(null);
   const btntoSignRef = React.useRef(null);
