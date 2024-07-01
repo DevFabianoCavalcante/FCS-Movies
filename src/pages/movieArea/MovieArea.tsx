@@ -4,7 +4,6 @@ import { useParams } from 'react-router-dom';
 import { HeaderCatalog } from '../../components/headerCatalog/HeaderCatalog';
 import { MoviesArea } from '../catalog/catalogStyle';
 import { CardMovies } from '../../components/cardMovies/cardMovies';
-import { ArrowPage } from '../../components/arrowToTopPage/arrow';
 
 import iconCalendar from './utils/img/iconCalendar.svg';
 import iconDuration from './utils/img/iconDuration.svg';
@@ -107,7 +106,6 @@ export const MovieArea = () => {
                 <h1>Carregando...</h1>
             </C.LoadingMovie>
         }
-        <ArrowPage />
         </>
         );
 };
