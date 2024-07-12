@@ -59,6 +59,16 @@ a {
   }
 }
 
+@keyframes skeleton {
+  from {
+    background-position: 0px;
+  }
+
+  to {
+    background-position: -200%;
+  }
+}
+
 .transition--animationX {
   animation-name: transitionAnimationX;
   animation-duration: 1.5s;

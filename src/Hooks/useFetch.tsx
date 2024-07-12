@@ -7,17 +7,17 @@ interface FetchRequest<T> {
     loading: boolean;
 }
 
-function useFetch <T>(url: string, typeRequest: 'data' | 'image'): FetchRequest<T> {
+function useFetch <T>(url: string): FetchRequest<T> {
     const [data, setData] = React.useState(null);
-    const [error, setError] = React.useState(null);
-    const [loading, setLoading] = React.useState(false);
+    const [error, setError] = React.useState<string | null>(null);
+    const [loading, setLoading] = React.useState(true);
 
-    const urlBaseApiData: string = typeRequest === data ? import.meta.env.VITE_API_URL_BASE : import.meta.env.VITE_IMG_URL_BASE;
+    const urlBaseApiData: string = import.meta.env.VITE_API_URL_BASE;
 
     React.useEffect (()=>{
         setData(null);
         setError(null);
-        setLoading(true);
+        setLoading(true)
 
         const http = axios.create({
             baseURL: urlBaseApiData
@@ -26,15 +26,16 @@ function useFetch <T>(url: string, typeRequest: 'data' | 'image'): FetchRequest<
         http.get(url)
         .then(response => { 
             if(response.status === 200) {
-                setData(response.data);
-                setLoading(false);
+                setData(response.data.results);
+                setInterval(()=> setLoading(false), 1000);
             }
         }).catch(error => {
-            setError(error);
+            setError(`${error}`);
+            setInterval(()=> setLoading(false), 1000);
         })
 
     },[url])
-
+    
     return {data, error, loading}
 }
 

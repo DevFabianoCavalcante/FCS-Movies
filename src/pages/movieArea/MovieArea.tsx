@@ -2,7 +2,7 @@ import * as C from './MovieAreaStyle';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { HeaderCatalog } from '../../components/headerCatalog/HeaderCatalog';
-import { MoviesArea } from '../catalog/catalogStyle';
+// import { MoviesArea } from '../catalog/catalogStyle';
 import { CardMovies } from '../../components/cardMovies/cardMovies';
 
 import iconCalendar from './utils/img/iconCalendar.svg';
@@ -87,8 +87,8 @@ export const MovieArea = () => {
                 </C.MoviePoster>
             </C.ContainerMovieInfo>
             <C.BtnWatch>Assistir</C.BtnWatch>
-            <C.TitleExtraSection>Filmes semelhantes</C.TitleExtraSection>
-            <MoviesArea>
+            {/* <C.TitleExtraSection>Filmes semelhantes</C.TitleExtraSection> */}
+            {/* <MoviesArea>
                 {similarMovies && similarMovies.map((movie: any)=>(
                     <CardMovies 
                         poster={linkImgMovie + movie.poster_path}
@@ -98,7 +98,7 @@ export const MovieArea = () => {
                         key={movie.id}
                     />
                 ))}
-            </MoviesArea>
+            </MoviesArea> */}
         </C.ContainerPage>
         }
         {!movie && 

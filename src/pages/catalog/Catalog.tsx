@@ -1,118 +1,454 @@
 import * as C from './catalogStyle';
-import React, { useEffect, useState, ChangeEvent, DetailedHTMLProps, FormEvent } from 'react';
-import { useParams, useSearchParams } from 'react-router-dom';
-
-import { HeaderCatalog } from '../../components/headerCatalog/HeaderCatalog';
-import { CardMovies } from '../../components/cardMovies/cardMovies';
+import React from 'react';
+import useFetch from '../../Hooks/useFetch';
+import { useSearchParams, useNavigate } from 'react-router-dom';
 
 import SearchIcon from './utils/img/searchIcon.svg';
 
-import { Api } from '../../apis/TMDB';
+import { HeaderCatalog } from '../../components/headerCatalog/HeaderCatalog';
+import { Skeleton } from '../../components/Skeleton/Skeleton';
+
+import Arrow from './utils/img/Arrow.svg';
+
+interface DataMovies {
+    gende_ids: number[];
+    id: number;
+    overview: string;
+    poster_path: string;
+    release_date: string;
+    title: string;
+    vote_average: number;
+}
+
+interface DataDetailMovie extends DataMovies {
+    runtime: number;
+}
+
 
 export const Catalog = () => {
-    const [valueSearch, setValueSearch] = useState<string>('');
-    const [topRatedMovies, setTopRatedMovies] = useState([]);
-    const [popularMovies, setPopularMovies] = useState([]);
-    const [searchMovie, setSearchMovie] = useState([]);
     const [searchParams, setSearchParams] = useSearchParams();
-    const [ typeList, setTypeList ] = useState<'topRated' | 'popular'>('topRated');
+    const navigate = useNavigate();
+    const [idMovie, setiDMovie] = React.useState<string>('');
+    const [dataDetailMovie, setDataDetailMovie] = React.useState<DataDetailMovie | null>();
+    const [inputSearch, setInputSearch] = React.useState('');
+    const [showDropdownSlide, setShowDropdownSlide] = React.useState<number | null>(null);
+
+    const key: string = import.meta.env.VITE_API_KEY;
+    const imgUrlBase = import.meta.env.VITE_IMG_URL_BASE;
+
+    const {data: dataNewMovies, loading: loadingNewMovies, error: errorNewMovies} = useFetch<DataMovies[]>(`/movie/popular?api_key=${key}&language=pt-BR&include_adult=false`);
+    const {data: dataTopMovies, loading: loadingTopMovies, error: errorTopMovies} = useFetch<DataMovies[]>(`/movie/top_rated?api_key=${key}&language=pt-BR&include_adult=false`);
+    const {data: dataActionMovies, loading: loadingActionMovies, error: errorActionMovies} = useFetch<DataMovies[]>(`/discover/movie?api_key=${key}&language=pt-BR&with_genres=28,12&include_adult=false`);
+    const {data: dataAnimationMovies, loading: loadingAnimationMovies, error: errorAnimationMovies} = useFetch<DataMovies[]>(`/discover/movie?api_key=${key}&language=pt-BR&with_genres=16&include_adult=false`);
+    const {data: dataComedyMovies, loading: loadingComedyMovies, error: errorComedyMovies} = useFetch<DataMovies[]>(`/discover/movie?api_key=${key}&language=pt-BR&with_genres=35&include_adult=false`);
+    const {data: dataFictionMovies, loading: loadingFictionMovies, error: errorFictionMovies} = useFetch<DataMovies[]>(`/discover/movie?api_key=${key}&language=pt-BR&with_genres=878&include_adult=false`);
+    const {data: dataRomanceMovies, loading: loadingRomanceMovies, error: errorRomanceMovies} = useFetch<DataMovies[]>(`/discover/movie?api_key=${key}&language=pt-BR&with_genres=10749&include_adult=false`);
+    const {data: dataThrillerMovies, loading: loadingThrillerMovies, error: errorThrillerMovies} = useFetch<DataMovies[]>(`/discover/movie?api_key=${key}&language=pt-BR&with_genres=53,9648&include_adult=false`);
+    const {data: dataWarMovies, loading: loadingWarMovies, error: errorWarMovies} = useFetch<DataMovies[]>(`/discover/movie?api_key=${key}&language=pt-BR&with_genres=10752&include_adult=false`);
+    const {data: dataWesternMovies, loading: loadingWesternMovies, error: errorWesternMovies} = useFetch<DataMovies[]>(`/discover/movie?api_key=${key}&language=pt-BR&with_genres=37&include_adult=false`);
+    const {data: dataSearchMovies, loading: loadingSearchMovies, error: errorSearchMovies} = useFetch<DataMovies[]>(`/search/movie?api_key=${key}&query=${inputSearch}&include_adult=false&language=pt-BR&page=1`);
 
     
-    const topRatedOption = document.querySelector('#topRatedOption') as HTMLElement;
-    const popularOption = document.querySelector('#popularOption') as HTMLElement;
+    React.useEffect(()=>{
+        setSearchParams('');
 
-    useEffect (()=>{
-        loadingMovies();
     },[]);
 
-    const linkImgMovie = import.meta.env.VITE_IMG_URL_BASE;
-
-    const loadingMovies = async () => {
-        let jsonPopularMovies = await Api.popularMovies();
-        let jsonTopMovies = await Api.topRatedMovies();
-        setTopRatedMovies(jsonTopMovies.results);
-        setPopularMovies(jsonPopularMovies.results);
-    };
-
-    const handleInputSearch = async (e:ChangeEvent<HTMLInputElement>) => {
-        
-        topRatedOption.removeAttribute('style');
-        popularOption.removeAttribute('style');
-
-        setValueSearch(e.currentTarget.value);
-        searchParams.set('query', e.currentTarget.value);
-        setSearchParams(searchParams);
-        const nameMovie: string | null = searchParams.get('query');
-        
-        if(nameMovie !== null) {
-            let jsonSearchMovies = await Api.searchMovies(nameMovie);
-            setSearchMovie(jsonSearchMovies.results);
+    React.useEffect(()=>{
+        async function request () {
+            const response = await fetch(`https://api.themoviedb.org/3/movie/${idMovie}?api_key=${key}&language=pt-BR`);
+            if(response.ok) {
+                const json = await response.json();
+                setDataDetailMovie(json);
+            } else {
+                throw new Error('Falha na requisição de detalhes do filme.');
+            }
         }
-    };
-
-    const handleTypeList = (e: FormEvent<HTMLLIElement>) => {
-        const elementLi = e.currentTarget;
-        const listSelected = elementLi.getAttribute('id');
         
-        if(listSelected === 'topRatedOption') {
-            setTypeList('topRated');
-            topRatedOption.setAttribute('style', 'color: var(--pcolor10);');
-            popularOption.removeAttribute('style');
-            setValueSearch('');
-            setSearchParams('');
-            
-        } else if (listSelected === 'popularOption') {
-            setTypeList('popular')
-            popularOption.setAttribute('style', 'color: var(--pcolor10);');
-            topRatedOption.removeAttribute('style');
-            setValueSearch('');
-            setSearchParams('');
+        request()
+
+    },[idMovie]);
+    
+    function getWidthSlide (slideElement: Element) {
+        const slideWidth = slideElement.getBoundingClientRect().width;
+        const slideMarginLeft = parseFloat(window.getComputedStyle(slideElement).marginLeft);
+        const slideMarginRight = parseFloat(window.getComputedStyle(slideElement).marginRight);
+        const totalSlideWidth = slideWidth + slideMarginLeft + slideMarginRight; 
+        
+        return totalSlideWidth;
+    }
+
+    function handlePreviousSlide (e: React.MouseEvent | React.TouchEvent) {
+        const element = e.target;
+
+        if(element && element instanceof HTMLElement) {
+            const parentController = element.parentElement;
+
+            if(parentController) {
+                const carousel = parentController.previousElementSibling;
+                const slide = carousel?.firstElementChild;
+
+                if(carousel && slide && slide instanceof HTMLElement) {
+                    if(slide.getBoundingClientRect().width < 300){
+                        const totalSlideWidth = getWidthSlide(slide); 
+                        window.innerWidth > 940 ? carousel.scrollLeft -= totalSlideWidth * 3 : carousel.scrollLeft -= totalSlideWidth * 1;
+
+                    } else {
+                        const margins = 2 * parseFloat(window.getComputedStyle(slide).marginLeft);
+                        carousel.scrollLeft -= slide.getBoundingClientRect().width + margins;
+                    }
+                }
+            }
         }
     }
 
+    function handleNextSlide (e: React.MouseEvent | React.TouchEvent) {
+        const element = e.target;
+
+        if(element && element instanceof HTMLElement) {
+            const parentController = element.parentElement;
+
+            if(parentController) {
+                const carousel = parentController.previousElementSibling;
+                const slide = carousel?.firstElementChild;
+
+                if(carousel && slide && slide instanceof HTMLElement) {
+                    if(slide.getBoundingClientRect().width < 300){
+                        const totalSlideWidth = getWidthSlide(slide); 
+                        window.innerWidth > 940 ? carousel.scrollLeft += totalSlideWidth * 3 : carousel.scrollLeft += totalSlideWidth * 1;
+
+                    } else {
+                        const margins = 2 * parseFloat(window.getComputedStyle(slide).marginLeft);
+                        carousel.scrollLeft += slide.getBoundingClientRect().width + margins;
+                    }
+                }
+            }
+        }
+    }
+
+    function handleSizeText (text: string, size: number) {
+        if(text && typeof text === 'string') {
+            if(text.length > size) {
+                return text.substring(0, size - 3) + '...'
+            } else {
+                return text;
+            }
+        } else {
+            return '';
+        }
+    }
+
+    function navigateToMovie (key: string) {
+        searchParams.set('id', key);
+        navigate(`/movies/id=${idMovie}`);
+    }
+
+    function handleClick (key?: number) {
+        const idMovie = key ? key.toString() : null;
+        if(idMovie) navigateToMovie(idMovie);
+        setInputSearch('');
+    }
+
+    function handleInput (e: React.ChangeEvent<HTMLInputElement>) {
+        setInputSearch(e.currentTarget.value);
+    }
+
+    function handleShowDropdown (id: number) {
+        setiDMovie(id.toString());
+        setShowDropdownSlide(id);
+    }
+
+    function handleMouseOut () {
+        setShowDropdownSlide(null);
+        setDataDetailMovie(null);
+    }
+    console.log(dataSearchMovies)
     return (
-        <C.Container>
+        <>
             <HeaderCatalog />
-            <C.NavbarContainer>
-                <C.Navbar>
-                    <li onClick={handleTypeList} id='topRatedOption'>Melhores Avaliados</li>
-                    <li onClick={handleTypeList} id='popularOption'>Populares</li>
-                </C.Navbar>
-                <C.Search>
-                    <input type='text' name='search' value={valueSearch} onChange={handleInputSearch} />
-                    <img src={SearchIcon} alt='Ícone de uma lupa' />
-                </C.Search>
-            </C.NavbarContainer>
-            <C.MoviesArea>
-                {searchParams.get('query') && searchMovie.map((item: any)=>(
-                    <CardMovies 
-                        poster={linkImgMovie + item.poster_path}
-                        score={item.vote_average}
-                        title={item.title}
-                        key={item.id}
-                        id={item.id}
-                    />
+            <C.ContainerInput>
+                <input type='text' name='search' value={inputSearch} onChange={handleInput} />
+                <img src={SearchIcon}/>
+            </C.ContainerInput>
+            
+            <C.ContainerSearch>
+                {dataSearchMovies && dataSearchMovies.length > 0 && dataSearchMovies.filter((movie)=> movie.poster_path).map((movie)=>(
+                    <div key={movie.id} onClick={() => handleClick(movie.id)} onMouseEnter={(e)=> handleShowDropdown(movie.id)} onMouseLeave={handleMouseOut}>
+                        <C.Slide>
+                            <img src={imgUrlBase + movie.poster_path} />
+                        </C.Slide>
+                    </div>
                 ))}
-                {typeList === 'topRated' && valueSearch === '' && topRatedMovies.map((item: any)=>(
-                    <CardMovies
-                        poster={linkImgMovie + item.poster_path}
-                        score={item.vote_average}
-                        title={item.title}
-                        key={item.id}
-                        id={item.id}
-                    />
-                ))}
-                {typeList === 'popular' && valueSearch === '' && popularMovies.map((item: any)=>(
-                    <CardMovies
-                        poster={linkImgMovie + item.poster_path}
-                        score={item.vote_average}
-                        title={item.title}
-                        key={item.id}
-                        id={item.id}
-                    />
-                ))}
-            </C.MoviesArea>
-        </C.Container>
-        
+            </C.ContainerSearch>
+
+            {!dataSearchMovies || dataSearchMovies.length <= 0 &&
+            <>
+            <C.Container>
+                <h1>Lançamentos</h1>
+                <C.Carousel>
+                    {errorNewMovies && <h1 style={{fontSize: '2.4rem', color: '#FEE100', height: '10rem'}}>{errorNewMovies}</h1>}
+                    {loadingNewMovies && <Skeleton prop={'standard'} />}
+                    {loadingNewMovies && <Skeleton prop={'standard'} />}
+                    {dataNewMovies && !loadingNewMovies && dataNewMovies.map((movie) => (
+                        <C.MainSlide key={movie.id} onClick={() => handleClick(movie.id)}>
+                            <img src={imgUrlBase + movie.poster_path} />
+                            <div>
+                                <h1>{movie.title}</h1>
+                                <h2>{movie.release_date.substring(0, 4)}</h2>
+                                <h3>Rating TMDB: {movie.vote_average.toFixed(2)}</h3>
+                                <p>{handleSizeText(movie.overview, 537)}</p>
+                            </div>
+                        </C.MainSlide>
+                    ))}
+                </C.Carousel>
+                {!errorNewMovies &&
+                <C.SlideController position={'55%'}>
+                    <img src={Arrow} onClick={handlePreviousSlide} onTouchMove={handlePreviousSlide} />
+                    <img src={Arrow} onClick={handleNextSlide} onTouchMove={handleNextSlide} />
+                </C.SlideController>}
+            </C.Container>
+
+            <C.Container>
+                <h1>Melhores Avaliados</h1>
+                <C.Carousel>
+                    {errorTopMovies && <h1 style={{fontSize: '2.4rem', color: '#FEE100', height: '10rem'}}>{errorTopMovies}</h1>}
+                    {loadingTopMovies && <Skeleton prop={'standard'} />}
+                    {loadingNewMovies && <Skeleton prop={'standard'} />}
+                    {dataTopMovies && !loadingTopMovies && dataTopMovies.map((movie) => (
+                        <C.MainSlide key={movie.id} onClick={() => handleClick(movie.id)}>
+                            <img src={imgUrlBase + movie.poster_path} />
+                            <div>
+                                <h1>{movie.title}</h1>
+                                <h2>{movie.release_date.substring(0, 4)}</h2>
+                                <h3>Rating TMDB: {movie.vote_average.toFixed(2)}</h3>
+                                <p>{handleSizeText(movie.overview, 537)}</p>
+                            </div>
+                        </C.MainSlide>
+                    ))}
+                </C.Carousel>
+                {!errorTopMovies &&
+                <C.SlideController position={'55%'}>
+                    <img src={Arrow} onClick={handlePreviousSlide} onTouchMove={handlePreviousSlide} />
+                    <img src={Arrow} onClick={handleNextSlide} onTouchMove={handleNextSlide} />
+                </C.SlideController>}
+            </C.Container>
+
+            <C.Container>
+                <h1>Ação</h1>
+                <C.Carousel>
+                    {errorActionMovies && <h1 style={{fontSize: '2.4rem', color: '#FEE100', height: '10rem'}}>{errorActionMovies}</h1>}
+                    {loadingActionMovies && <Skeleton prop={'mini'} />}
+                    {dataActionMovies && !loadingActionMovies && dataActionMovies.map((movie) => (
+                        <C.ContainerSlide key={movie.id} onClick={() => handleClick(movie.id)} onMouseEnter={(e)=> handleShowDropdown(movie.id)} onMouseLeave={handleMouseOut}>
+                            <C.Slide>
+                                <img src={imgUrlBase + movie.poster_path} />
+                            </C.Slide>
+                            <C.DropdownSlide show={showDropdownSlide === movie.id}>
+                                <h2>{handleSizeText(movie.title, 35)}</h2>
+                                <div>
+                                    <h3>{dataDetailMovie && dataDetailMovie?.runtime + ' min'}</h3>
+                                    <h3>{movie.release_date.substring(0,4)}</h3>
+                                </div>
+                            </C.DropdownSlide>
+                        </C.ContainerSlide>
+                    ))}
+                </C.Carousel>
+                {!errorActionMovies &&
+                <C.SlideController position={'45%'}>
+                    <img src={Arrow} onClick={handlePreviousSlide} onTouchMove={handlePreviousSlide} />
+                    <img src={Arrow} onClick={handleNextSlide} onTouchMove={handleNextSlide} />
+                </C.SlideController>}
+            </C.Container>
+
+            <C.Container>
+                <h1>Animação</h1>
+                <C.Carousel>
+                    {errorAnimationMovies && <h1 style={{fontSize: '2.4rem', color: '#FEE100', height: '10rem'}}>{errorAnimationMovies}</h1>}
+                    {loadingAnimationMovies && <Skeleton prop={'mini'} />}
+                    {dataAnimationMovies && !loadingAnimationMovies && dataAnimationMovies.map((movie) => (
+                        <C.ContainerSlide key={movie.id} onClick={() => handleClick(movie.id)} onMouseEnter={(e)=> handleShowDropdown(movie.id)} onMouseLeave={handleMouseOut}>
+                            <C.Slide>
+                                <img src={imgUrlBase + movie.poster_path} />
+                            </C.Slide>
+                            <C.DropdownSlide show={showDropdownSlide === movie.id}>
+                                <h2>{handleSizeText(movie.title, 35)}</h2>
+                                <div>
+                                    <h3>{dataDetailMovie && dataDetailMovie?.runtime + ' min'}</h3>
+                                    <h3>{movie.release_date.substring(0,4)}</h3>
+                                </div>
+                            </C.DropdownSlide>
+                        </C.ContainerSlide>
+                    ))}
+                </C.Carousel>
+                {!errorAnimationMovies &&
+                <C.SlideController position={'45%'}>
+                    <img src={Arrow} onClick={handlePreviousSlide} onTouchMove={handlePreviousSlide} />
+                    <img src={Arrow} onClick={handleNextSlide} onTouchMove={handleNextSlide} />
+                </C.SlideController>}
+            </C.Container>
+
+            <C.Container>
+                <h1>Comédia</h1>
+                <C.Carousel>
+                    {errorComedyMovies && <h1 style={{fontSize: '2.4rem', color: '#FEE100', height: '10rem'}}>{errorComedyMovies}</h1>}
+                    {loadingComedyMovies && <Skeleton prop={'mini'} />}
+                    {dataComedyMovies && !loadingComedyMovies && dataComedyMovies.map((movie) => (
+                        <C.ContainerSlide key={movie.id} onClick={() => handleClick(movie.id)} onMouseEnter={(e)=> handleShowDropdown(movie.id)} onMouseLeave={handleMouseOut}>
+                            <C.Slide>
+                                <img src={imgUrlBase + movie.poster_path} />
+                            </C.Slide>
+                            <C.DropdownSlide show={showDropdownSlide === movie.id}>
+                                <h2>{handleSizeText(movie.title, 35)}</h2>
+                                <div>
+                                    <h3>{dataDetailMovie && dataDetailMovie?.runtime + ' min'}</h3>
+                                    <h3>{movie.release_date.substring(0,4)}</h3>
+                                </div>
+                            </C.DropdownSlide>
+                        </C.ContainerSlide>
+                    ))}
+                </C.Carousel>
+                {!errorComedyMovies &&
+                <C.SlideController position={'45%'}>
+                    <img src={Arrow} onClick={handlePreviousSlide} onTouchMove={handlePreviousSlide} />
+                    <img src={Arrow} onClick={handleNextSlide} onTouchMove={handleNextSlide} />
+                </C.SlideController>}
+            </C.Container>
+
+            <C.Container>
+                <h1>Ficção</h1>
+                <C.Carousel>
+                    {errorFictionMovies && <h1 style={{fontSize: '2.4rem', color: '#FEE100', height: '10rem'}}>{errorFictionMovies}</h1>}
+                    {loadingFictionMovies && <Skeleton prop={'mini'} />}
+                    {dataFictionMovies && !loadingFictionMovies && dataFictionMovies.map((movie) => (
+                        <C.ContainerSlide key={movie.id} onClick={() => handleClick(movie.id)} onMouseEnter={(e)=> handleShowDropdown(movie.id)} onMouseLeave={handleMouseOut}>
+                            <C.Slide>
+                                <img src={imgUrlBase + movie.poster_path} />
+                            </C.Slide>
+                            <C.DropdownSlide show={showDropdownSlide === movie.id}>
+                                <h2>{handleSizeText(movie.title, 35)}</h2>
+                                <div>
+                                    <h3>{dataDetailMovie && dataDetailMovie?.runtime + ' min'}</h3>
+                                    <h3>{movie.release_date.substring(0,4)}</h3>
+                                </div>
+                            </C.DropdownSlide>
+                        </C.ContainerSlide>
+                    ))}
+                </C.Carousel>
+                {!errorFictionMovies &&
+                <C.SlideController position={'45%'}>
+                    <img src={Arrow} onClick={handlePreviousSlide} onTouchMove={handlePreviousSlide} />
+                    <img src={Arrow} onClick={handleNextSlide} onTouchMove={handleNextSlide} />
+                </C.SlideController>}
+            </C.Container>
+
+            <C.Container>
+                <h1>Romance</h1>
+                <C.Carousel>
+                    {errorRomanceMovies && <h1 style={{fontSize: '2.4rem', color: '#FEE100', height: '10rem'}}>{errorRomanceMovies}</h1>}
+                    {loadingRomanceMovies && <Skeleton prop={'mini'} />}
+                    {dataRomanceMovies && !loadingRomanceMovies && dataRomanceMovies.map((movie) => (
+                        <C.ContainerSlide key={movie.id} onClick={() => handleClick(movie.id)} onMouseEnter={(e)=> handleShowDropdown(movie.id)} onMouseLeave={handleMouseOut}>
+                            <C.Slide>
+                                <img src={imgUrlBase + movie.poster_path} />
+                            </C.Slide>
+                            <C.DropdownSlide show={showDropdownSlide === movie.id}>
+                                <h2>{handleSizeText(movie.title, 35)}</h2>
+                                <div>
+                                    <h3>{dataDetailMovie && dataDetailMovie?.runtime + ' min'}</h3>
+                                    <h3>{movie.release_date.substring(0,4)}</h3>
+                                </div>
+                            </C.DropdownSlide>
+                        </C.ContainerSlide>
+                    ))}
+                </C.Carousel>
+                {!errorRomanceMovies &&
+                <C.SlideController position={'45%'}>
+                    <img src={Arrow} onClick={handlePreviousSlide} onTouchMove={handlePreviousSlide} />
+                    <img src={Arrow} onClick={handleNextSlide} onTouchMove={handleNextSlide} />
+                </C.SlideController>}
+            </C.Container>
+
+            <C.Container>
+                <h1>Terror</h1>
+                <C.Carousel>
+                    {errorThrillerMovies && <h1 style={{fontSize: '2.4rem', color: '#FEE100', height: '10rem'}}>{errorThrillerMovies}</h1>}
+                    {loadingThrillerMovies && <Skeleton prop={'mini'} />}
+                    {dataThrillerMovies && !loadingThrillerMovies && dataThrillerMovies.map((movie) => (
+                        <C.ContainerSlide key={movie.id} onClick={() => handleClick(movie.id)} onMouseEnter={(e)=> handleShowDropdown(movie.id)} onMouseLeave={handleMouseOut}>
+                            <C.Slide>
+                                <img src={imgUrlBase + movie.poster_path} />
+                            </C.Slide>
+                            <C.DropdownSlide show={showDropdownSlide === movie.id}>
+                                <h2>{handleSizeText(movie.title, 35)}</h2>
+                                <div>
+                                    <h3>{dataDetailMovie && dataDetailMovie?.runtime + ' min'}</h3>
+                                    <h3>{movie.release_date.substring(0,4)}</h3>
+                                </div>
+                            </C.DropdownSlide>
+                        </C.ContainerSlide>
+                    ))}
+                </C.Carousel>
+                {!errorThrillerMovies &&
+                <C.SlideController position={'45%'}>
+                    <img src={Arrow} onClick={handlePreviousSlide} onTouchMove={handlePreviousSlide} />
+                    <img src={Arrow} onClick={handleNextSlide} onTouchMove={handleNextSlide} />
+                </C.SlideController>}
+            </C.Container>
+
+            <C.Container>
+                <h1>Guerra</h1>
+                <C.Carousel>
+                    {errorWarMovies && <h1 style={{fontSize: '2.4rem', color: '#FEE100', height: '10rem'}}>{errorWarMovies}</h1>}
+                    {loadingWarMovies && <Skeleton prop={'mini'} />}
+                    {dataWarMovies && !loadingWarMovies && dataWarMovies.map((movie) => (
+                        <C.ContainerSlide key={movie.id} onClick={() => handleClick(movie.id)} onMouseEnter={(e)=> handleShowDropdown(movie.id)} onMouseLeave={handleMouseOut}>
+                            <C.Slide>
+                                <img src={imgUrlBase + movie.poster_path} />
+                            </C.Slide>
+                            <C.DropdownSlide show={showDropdownSlide === movie.id}>
+                                <h2>{handleSizeText(movie.title, 35)}</h2>
+                                <div>
+                                    <h3>{dataDetailMovie && dataDetailMovie?.runtime + ' min'}</h3>
+                                    <h3>{movie.release_date.substring(0,4)}</h3>
+                                </div>
+                            </C.DropdownSlide>
+                        </C.ContainerSlide>
+                    ))}
+                </C.Carousel>
+                {!errorWarMovies &&
+                <C.SlideController position={'45%'}>
+                    <img src={Arrow} onClick={handlePreviousSlide} onTouchMove={handlePreviousSlide} />
+                    <img src={Arrow} onClick={handleNextSlide} onTouchMove={handleNextSlide} />
+                </C.SlideController>}
+            </C.Container>
+
+            <C.Container>
+                <h1>Faroeste</h1>
+                <C.Carousel>
+                    {errorWesternMovies && <h1 style={{fontSize: '2.4rem', color: '#FEE100', height: '10rem'}}>{errorWesternMovies}</h1>}
+                    {loadingWesternMovies && <Skeleton prop={'mini'} />}
+                    {dataWesternMovies && !loadingWesternMovies && dataWesternMovies.map((movie) => (
+                        <C.ContainerSlide key={movie.id} onClick={() => handleClick(movie.id)} onMouseEnter={(e)=> handleShowDropdown(movie.id)} onMouseLeave={handleMouseOut}>
+                            <C.Slide>
+                                <img src={imgUrlBase + movie.poster_path} />
+                            </C.Slide>
+                            <C.DropdownSlide show={showDropdownSlide === movie.id}>
+                                <h2>{handleSizeText(movie.title, 35)}</h2>
+                                <div>
+                                    <h3>{dataDetailMovie && dataDetailMovie?.runtime + ' min'}</h3>
+                                    <h3>{movie.release_date.substring(0,4)}</h3>
+                                </div>
+                            </C.DropdownSlide>
+                        </C.ContainerSlide>
+                    ))}
+                </C.Carousel>
+                {!errorWesternMovies &&
+                <C.SlideController position={'45%'}>
+                    <img src={Arrow} onClick={handlePreviousSlide} onTouchMove={handlePreviousSlide} />
+                    <img src={Arrow} onClick={handleNextSlide} onTouchMove={handleNextSlide} />
+                </C.SlideController>}
+            </C.Container>
+        </>}
+        </>
     );
 };

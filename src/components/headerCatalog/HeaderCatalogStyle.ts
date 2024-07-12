@@ -6,32 +6,12 @@ export const HeaderContainer = styled.header `
     align-items: center;
     height: 12rem;
     max-width: 100%;
-`;
+    /* padding: 0 11.5rem; */
+    padding: 0 2rem;
 
-export const Logo = styled.div `
-    height: auto;
-    width: auto;
-
-    h1 {
-        font-size: 6rem;
-        font-family: var(--bebasNeue);
-        letter-spacing: 0.5rem;
-        font-weight: 400;
-        color: var(--scolor1);
-        transition: ease-in-out .5s;
-
-        :hover {
-            cursor: pointer;
-            transform: scale(1.1);
-        }
+    @media(max-width: 500px) {
+        padding: 0 1rem;
     }
-
-    @media(max-width: 575px) {
-        h1 {
-            font-size: 3.5rem;
-        }
-    }
-
 `;
 
 export const ProfileArea = styled.div `
@@ -58,7 +38,7 @@ export const ProfileArea = styled.div `
         cursor: pointer;
     }
 
-    @media(max-width: 575px) {
+    @media(max-width: 650px) {
         
         h1 {
             font-size: 1.5rem;

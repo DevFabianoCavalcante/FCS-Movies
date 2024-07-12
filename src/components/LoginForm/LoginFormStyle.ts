@@ -81,7 +81,7 @@ export const FormLogin = styled.form `
 
     p:hover, h3:hover {
         cursor: pointer;
-        color: var(--scolor4);
+        color: var(--scolor1);
     }
 
     button {
