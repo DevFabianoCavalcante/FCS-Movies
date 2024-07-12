@@ -13,7 +13,7 @@ Para a utilização é necessário somente um navegador web e conexão com a int
 
 - Acesse: https://fcsmovies.netlify.app/
 - Clique para acessar qualquer um dos planos;
-- Crie uma conta e logo após isso faça o login;
+- Crie uma conta e logo após isso faça o login para visualizar o catálogo;
 
 ### :camera: Capturas de tela
 
