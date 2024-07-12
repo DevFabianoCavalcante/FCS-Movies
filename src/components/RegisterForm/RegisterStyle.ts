@@ -11,20 +11,19 @@ export const RegisterArea = styled.div `
     background: var(--pcolor2);
 
     @media(max-width: 480px) {
-        width: 90%;
-        padding: 0;
-        padding-bottom: 1rem;
+        height: 100%;
+        width: 100%;
+        justify-content: flex-start;
     }
 `;
 
 export const Title = styled.h1 `
     display: flex;
-    align-self: flex-start;
+    align-self: center;
     font-size: 6.4rem;
     font-family: var(--bebasNeue);
     font-weight: 400;
     color: var(--scolor1);
-    margin: 0 16rem 0 0;
 
     @media(max-width: 480px) {
         margin: 0 auto;

@@ -139,13 +139,15 @@ export const Catalog = () => {
     }
 
     function navigateToMovie (key: string) {
-        searchParams.set('id', key);
-        navigate(`/movies/id=${idMovie}`);
     }
 
     function handleClick (key?: number) {
         const idMovie = key ? key.toString() : null;
-        if(idMovie) navigateToMovie(idMovie);
+        console.log(idMovie)
+        if(idMovie) {
+            searchParams.set('id', idMovie);
+            navigate(`/movies/id=${idMovie}`);
+        }
         setInputSearch('');
     }
 
@@ -162,7 +164,7 @@ export const Catalog = () => {
         setShowDropdownSlide(null);
         setDataDetailMovie(null);
     }
-    console.log(dataSearchMovies)
+
     return (
         <>
             <HeaderCatalog />

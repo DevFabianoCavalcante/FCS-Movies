@@ -11,7 +11,9 @@ export const LoginArea = styled.div `
     background: var(--pcolor2);
 
     @media(max-width: 480px) {
-        width: 90%;
+        height: 100%;
+        width: 100%;
+        justify-content: flex-start;
     }
 `;
 

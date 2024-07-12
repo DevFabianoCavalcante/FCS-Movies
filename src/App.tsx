@@ -16,7 +16,7 @@ function App() {
         <HashRouter>
           <Routes>
               <Route path='/' element={<Landing />} />
-              <Route path='login' element={<Login />} />
+              <Route path='login/*' element={<Login />} />
               <Route path='/movies' element={<PrivateRoute> <Catalog /> </PrivateRoute>} />
               <Route path='/movies/id=:id' element={<MovieArea />} />
           </Routes>

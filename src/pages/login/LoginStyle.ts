@@ -35,4 +35,8 @@ export const LoginArea = styled.div `
         margin-top: 3rem;
         justify-content: flex-start;
     }
+
+    @media(max-width: 480px) {
+        margin-top: 0rem;
+    }
 `;

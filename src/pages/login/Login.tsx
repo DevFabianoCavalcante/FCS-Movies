@@ -142,7 +142,7 @@ export const Login = () => {
                             userName={userName}
                         />}
                     />
-                    <Route path='/changePassword' element={
+                    <Route path='changePassword' element={
                         <ChangePasswordForm 
                             handleEmailChange={handleEmailChange}
                             email={email}

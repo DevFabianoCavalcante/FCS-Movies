@@ -61,13 +61,13 @@ export const Main = styled.section<BackgroundProps> `
     }
 
     @media(max-width: 480px) {
-        height: 100vh;
+        height: 50vh;
         padding: 0 2rem 0 2rem;
         background-position: left;
         justify-content: flex-start;
         
         h1{
-            font-size: 3.2rem;
+            font-size: 3rem;
             padding-top: 10rem;
         }
 
@@ -75,6 +75,7 @@ export const Main = styled.section<BackgroundProps> `
             font-size: 2.4rem;
             height: auto;
             width: auto;
+            margin-left: 0;
         }
     }
 `;

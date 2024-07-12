@@ -261,4 +261,8 @@ export const SlideController = styled.div<PropsController> `
         transform: rotate(-180deg);
         pointer-events: auto;
     }
+
+    @media(max-width: 900px) {
+        top: 55%;
+    }
 `;

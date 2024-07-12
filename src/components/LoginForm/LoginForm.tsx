@@ -22,7 +22,7 @@ export const LoginForm = ({handleSubmit, handleEmailChange, handlePasswordChange
                     Senha
                     <input type='password' name='senha' value={password} onChange={handlePasswordChange} autoComplete='off' />
                 </label>
-                <Link to='/login/changePassword'><p>Esqueci minha senha</p></Link>
+                <Link to='changePassword'><p>Esqueci minha senha</p></Link>
                 <Button typeBtn='submit' border={false} color={'#5F5400'} fontSize={'2rem'} fontWeight={'600'} height={'4.5rem'} width={'18rem'} background={'#B6A100, #FFFF00'} isGradient={true}>
                     Entrar
                 </Button>

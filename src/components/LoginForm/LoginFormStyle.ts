@@ -11,13 +11,15 @@ export const LoginArea = styled.div `
     background: var(--pcolor2);
 
     @media(max-width: 480px) {
-        width: 90%;
+        height: 100%;
+        width: 100%;
+        justify-content: flex-start;
     }
 `;
 
 export const Title = styled.h1 `
     display: flex;
-    align-self: flex-start;
+    align-self: center;
     font-size: 6.4rem;
     font-family: var(--bebasNeue);
     font-weight: 400;
