@@ -21,7 +21,7 @@ Para a utilização é necessário somente um navegador web e conexão com a int
 
 ![tela de login](https://i.ibb.co/nP7LHd3/tela-login.png)
 
-![tela do catálogo](https://i.ibb.co/CPqBtZd/tela-catalogo.png)
+![tela do catálogo](https://i.ibb.co/CbnhtX0/catalog-screen.png)
 
 ![tela de detalhes do filme](https://i.ibb.co/FKYcJTY/tela-de-detalhes-do-filme.png)
 

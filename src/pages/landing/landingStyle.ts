@@ -61,14 +61,14 @@ export const Main = styled.section<BackgroundProps> `
     }
 
     @media(max-width: 480px) {
-        height: 50vh;
+        height: 70vh;
         padding: 0 2rem 0 2rem;
         background-position: left;
         justify-content: flex-start;
         
         h1{
             font-size: 3rem;
-            padding-top: 10rem;
+            padding-top: 5rem;
         }
 
         button{
