@@ -32,6 +32,8 @@ export const Catalog = () => {
     const [dataDetailMovie, setDataDetailMovie] = React.useState<DataDetailMovie | null>();
     const [inputSearch, setInputSearch] = React.useState('');
     const [showDropdownSlide, setShowDropdownSlide] = React.useState<number | null>(null);
+    const [touchStartX, setTouchStartX] = React.useState(0);
+    const [touchEndX, setTouchEndX] = React.useState(0);
 
     const key: string = import.meta.env.VITE_API_KEY;
     const imgUrlBase = import.meta.env.VITE_IMG_URL_BASE;
@@ -68,6 +70,24 @@ export const Catalog = () => {
         request()
 
     },[idMovie]);
+
+    const onTouchStart = (e: React.TouchEvent) => {
+        setTouchStartX(e.targetTouches[0].clientX);
+    };
+
+    const onTouchMove = (e: React.TouchEvent) => {
+        setTouchEndX(e.targetTouches[0].clientX);
+    };
+
+    const onTouchEnd = (e: React.TouchEvent) => {
+        if (touchStartX - touchEndX > 50) {
+            handleNextSlide(e);
+        }
+
+        if (touchStartX - touchEndX < -50) {
+            handlePreviousSlide(e);
+        }
+    }
     
     function getWidthSlide (slideElement: Element) {
         const slideWidth = slideElement.getBoundingClientRect().width;
@@ -138,9 +158,6 @@ export const Catalog = () => {
         }
     }
 
-    function navigateToMovie (key: string) {
-    }
-
     function handleClick (key?: number) {
         const idMovie = key ? key.toString() : null;
         console.log(idMovie)
@@ -187,7 +204,7 @@ export const Catalog = () => {
             <>
             <C.Container>
                 <h1>Lançamentos</h1>
-                <C.Carousel>
+                <C.Carousel onTouchStart={onTouchStart} onTouchMove={onTouchMove} onTouchEnd={onTouchEnd}>
                     {errorNewMovies && <h1 style={{fontSize: '2.4rem', color: '#FEE100', height: '10rem'}}>{errorNewMovies}</h1>}
                     {loadingNewMovies && <Skeleton prop={'standard'} />}
                     {loadingNewMovies && <Skeleton prop={'standard'} />}
@@ -212,7 +229,7 @@ export const Catalog = () => {
 
             <C.Container>
                 <h1>Melhores Avaliados</h1>
-                <C.Carousel>
+                <C.Carousel onTouchStart={onTouchStart} onTouchMove={onTouchMove} onTouchEnd={onTouchEnd}>
                     {errorTopMovies && <h1 style={{fontSize: '2.4rem', color: '#FEE100', height: '10rem'}}>{errorTopMovies}</h1>}
                     {loadingTopMovies && <Skeleton prop={'standard'} />}
                     {loadingNewMovies && <Skeleton prop={'standard'} />}
@@ -237,7 +254,7 @@ export const Catalog = () => {
 
             <C.Container>
                 <h1>Ação</h1>
-                <C.Carousel>
+                <C.Carousel onTouchStart={onTouchStart} onTouchMove={onTouchMove} onTouchEnd={onTouchEnd}>
                     {errorActionMovies && <h1 style={{fontSize: '2.4rem', color: '#FEE100', height: '10rem'}}>{errorActionMovies}</h1>}
                     {loadingActionMovies && <Skeleton prop={'mini'} />}
                     {dataActionMovies && !loadingActionMovies && dataActionMovies.map((movie) => (
@@ -264,7 +281,7 @@ export const Catalog = () => {
 
             <C.Container>
                 <h1>Animação</h1>
-                <C.Carousel>
+                <C.Carousel onTouchStart={onTouchStart} onTouchMove={onTouchMove} onTouchEnd={onTouchEnd}>
                     {errorAnimationMovies && <h1 style={{fontSize: '2.4rem', color: '#FEE100', height: '10rem'}}>{errorAnimationMovies}</h1>}
                     {loadingAnimationMovies && <Skeleton prop={'mini'} />}
                     {dataAnimationMovies && !loadingAnimationMovies && dataAnimationMovies.map((movie) => (
@@ -291,7 +308,7 @@ export const Catalog = () => {
 
             <C.Container>
                 <h1>Comédia</h1>
-                <C.Carousel>
+                <C.Carousel onTouchStart={onTouchStart} onTouchMove={onTouchMove} onTouchEnd={onTouchEnd}>
                     {errorComedyMovies && <h1 style={{fontSize: '2.4rem', color: '#FEE100', height: '10rem'}}>{errorComedyMovies}</h1>}
                     {loadingComedyMovies && <Skeleton prop={'mini'} />}
                     {dataComedyMovies && !loadingComedyMovies && dataComedyMovies.map((movie) => (
@@ -318,7 +335,7 @@ export const Catalog = () => {
 
             <C.Container>
                 <h1>Ficção</h1>
-                <C.Carousel>
+                <C.Carousel onTouchStart={onTouchStart} onTouchMove={onTouchMove} onTouchEnd={onTouchEnd}>
                     {errorFictionMovies && <h1 style={{fontSize: '2.4rem', color: '#FEE100', height: '10rem'}}>{errorFictionMovies}</h1>}
                     {loadingFictionMovies && <Skeleton prop={'mini'} />}
                     {dataFictionMovies && !loadingFictionMovies && dataFictionMovies.map((movie) => (
@@ -345,7 +362,7 @@ export const Catalog = () => {
 
             <C.Container>
                 <h1>Romance</h1>
-                <C.Carousel>
+                <C.Carousel onTouchStart={onTouchStart} onTouchMove={onTouchMove} onTouchEnd={onTouchEnd}>
                     {errorRomanceMovies && <h1 style={{fontSize: '2.4rem', color: '#FEE100', height: '10rem'}}>{errorRomanceMovies}</h1>}
                     {loadingRomanceMovies && <Skeleton prop={'mini'} />}
                     {dataRomanceMovies && !loadingRomanceMovies && dataRomanceMovies.map((movie) => (
@@ -372,7 +389,7 @@ export const Catalog = () => {
 
             <C.Container>
                 <h1>Terror</h1>
-                <C.Carousel>
+                <C.Carousel onTouchStart={onTouchStart} onTouchMove={onTouchMove} onTouchEnd={onTouchEnd}>
                     {errorThrillerMovies && <h1 style={{fontSize: '2.4rem', color: '#FEE100', height: '10rem'}}>{errorThrillerMovies}</h1>}
                     {loadingThrillerMovies && <Skeleton prop={'mini'} />}
                     {dataThrillerMovies && !loadingThrillerMovies && dataThrillerMovies.map((movie) => (
@@ -399,7 +416,7 @@ export const Catalog = () => {
 
             <C.Container>
                 <h1>Guerra</h1>
-                <C.Carousel>
+                <C.Carousel onTouchStart={onTouchStart} onTouchMove={onTouchMove} onTouchEnd={onTouchEnd}>
                     {errorWarMovies && <h1 style={{fontSize: '2.4rem', color: '#FEE100', height: '10rem'}}>{errorWarMovies}</h1>}
                     {loadingWarMovies && <Skeleton prop={'mini'} />}
                     {dataWarMovies && !loadingWarMovies && dataWarMovies.map((movie) => (
@@ -426,7 +443,7 @@ export const Catalog = () => {
 
             <C.Container>
                 <h1>Faroeste</h1>
-                <C.Carousel>
+                <C.Carousel onTouchStart={onTouchStart} onTouchMove={onTouchMove} onTouchEnd={onTouchEnd}>
                     {errorWesternMovies && <h1 style={{fontSize: '2.4rem', color: '#FEE100', height: '10rem'}}>{errorWesternMovies}</h1>}
                     {loadingWesternMovies && <Skeleton prop={'mini'} />}
                     {dataWesternMovies && !loadingWesternMovies && dataWesternMovies.map((movie) => (
