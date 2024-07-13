@@ -59,11 +59,9 @@ export const MovieArea = () => {
             <C.ContainerMovieInfo>
                 <C.MovieDetails>
                     <C.ItemDescriptionMovie fontText='2.8rem' colorText='var(--scolor1)' weightText='600'>
-                        <img src={iconMovie} alt='Ícone filme' title='Nome do filme' />
                         <p className='title-movie'>{movie.title}</p>
                     </C.ItemDescriptionMovie>
                     <C.ItemDescriptionMovie fontText='2rem' colorText='var(--pcolor9)' weightText='400'>
-                        <img src={iconSinopse} alt='Ícone sinopse' title='Sinopse' className='resume-icon' />
                         <p>{movie.overview}</p>
                     </C.ItemDescriptionMovie>
 
