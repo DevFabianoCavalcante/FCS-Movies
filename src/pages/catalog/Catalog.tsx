@@ -1,6 +1,7 @@
 import * as C from './catalogStyle';
 import React from 'react';
 import useFetch from '../../Hooks/useFetch';
+import useFetchMovie from '../../Hooks/useFetchMovie';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 
 import SearchIcon from './utils/img/searchIcon.svg';
@@ -29,7 +30,6 @@ export const Catalog = () => {
     const [searchParams, setSearchParams] = useSearchParams();
     const navigate = useNavigate();
     const [idMovie, setiDMovie] = React.useState<string>('');
-    const [dataDetailMovie, setDataDetailMovie] = React.useState<DataDetailMovie | null>();
     const [inputSearch, setInputSearch] = React.useState('');
     const [showDropdownSlide, setShowDropdownSlide] = React.useState<number | null>(null);
     const [touchStartX, setTouchStartX] = React.useState(0);
@@ -49,31 +49,14 @@ export const Catalog = () => {
     const {data: dataWarMovies, loading: loadingWarMovies, error: errorWarMovies} = useFetch<DataMovies[]>(`/discover/movie?api_key=${key}&language=pt-BR&with_genres=10752&include_adult=false`);
     const {data: dataWesternMovies, loading: loadingWesternMovies, error: errorWesternMovies} = useFetch<DataMovies[]>(`/discover/movie?api_key=${key}&language=pt-BR&with_genres=37&include_adult=false`);
     const {data: dataSearchMovies, loading: loadingSearchMovies, error: errorSearchMovies} = useFetch<DataMovies[]>(`/search/movie?api_key=${key}&query=${inputSearch}&include_adult=false&language=pt-BR&page=1`);
-
+    const {data: dataDetailMovie} = useFetchMovie<DataDetailMovie>(idMovie);
     
     React.useEffect(()=>{
         setSearchParams('');
-
     },[]);
-
-    React.useEffect(()=>{
-        async function request () {
-            const response = await fetch(`https://api.themoviedb.org/3/movie/${idMovie}?api_key=${key}&language=pt-BR`);
-            if(response.ok) {
-                const json = await response.json();
-                setDataDetailMovie(json);
-            } else {
-                throw new Error('Falha na requisição de detalhes do filme.');
-            }
-        }
-        
-        request()
-
-    },[idMovie]);
 
     const onTouchStart = (e: React.TouchEvent) => {
         setTouchStartX(e.targetTouches[0].clientX);
-        console.log(touchStartX);
     };
 
     const onTouchMove = (e: React.TouchEvent) => {
@@ -107,18 +90,9 @@ export const Catalog = () => {
 
             if(parentController) {
                 const carousel = parentController.previousElementSibling;
-                let slide;
-
-                if(e.type === 'click') {
-                    slide = carousel?.firstElementChild;
-                    console.log(slide);
-                } else if (e.type === 'touchend') {
-                    slide = parentController.children[1].children[0];
-                    console.log(slide)
-                }
+                const slide = carousel?.firstElementChild;
 
                 if(carousel && slide instanceof HTMLElement) {
-                    console.log(slide);
                     if(slide.getBoundingClientRect().width < 300){
                         const totalSlideWidth = getWidthSlide(slide); 
                         window.innerWidth > 940 ? carousel.scrollLeft -= totalSlideWidth * 3 : carousel.scrollLeft -= totalSlideWidth * 1;
@@ -140,18 +114,9 @@ export const Catalog = () => {
 
             if(parentController) {
                 const carousel = parentController.previousElementSibling;
-                let slide;
-
-                if(e.type === 'click') {
-                    slide = carousel?.firstElementChild;
-                    console.log(slide);
-                } else if (e.type === 'touchend') {
-                    slide = parentController.children[1].children[0];
-                    console.log(slide)
-                }
+                const slide = carousel?.firstElementChild;
 
                 if(carousel && slide instanceof HTMLElement) {
-                    console.log(slide);
                     if(slide.getBoundingClientRect().width < 300){
                         const totalSlideWidth = getWidthSlide(slide); 
                         window.innerWidth > 940 ? carousel.scrollLeft += totalSlideWidth * 3 : carousel.scrollLeft += totalSlideWidth * 1;
@@ -179,7 +144,6 @@ export const Catalog = () => {
 
     function handleClick (key?: number) {
         const idMovie = key ? key.toString() : null;
-        console.log(idMovie)
         if(idMovie) {
             searchParams.set('id', idMovie);
             navigate(`/movies/id=${idMovie}`);
@@ -198,7 +162,6 @@ export const Catalog = () => {
 
     function handleMouseOut () {
         setShowDropdownSlide(null);
-        setDataDetailMovie(null);
     }
 
     return (

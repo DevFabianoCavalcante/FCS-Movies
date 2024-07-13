@@ -2,14 +2,10 @@ import * as C from './MovieAreaStyle';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { HeaderCatalog } from '../../components/headerCatalog/HeaderCatalog';
-// import { MoviesArea } from '../catalog/catalogStyle';
-import { CardMovies } from '../../components/cardMovies/cardMovies';
 
-import iconCalendar from './utils/img/iconCalendar.svg';
-import iconDuration from './utils/img/iconDuration.svg';
-import iconMovie from './utils/img/iconMovie.svg';
-import iconSinopse from './utils/img/iconSinopse.svg';
-import iconStar from './utils/img/iconStar.svg';
+import IconCalendar from './utils/img/iconCalendar.svg';
+import IconDuration from './utils/img/iconDuration.svg';
+import IconStar from './utils/img/iconStar.svg';
 
 import { Api } from '../../apis/TMDB';
 
@@ -66,18 +62,18 @@ export const MovieArea = () => {
                     </C.ItemDescriptionMovie>
 
                     <C.ItemDescriptionMovie fontText='2rem' colorText='var(--pcolor9)' weightText='400'>
-                        <img src={iconDuration} alt='Ícone de duração' title='duração' />
+                        <img src={IconDuration} alt='Ícone de duração' title='duração' />
                         <p>{`${movie.runtime} minutos`}</p>
                     </C.ItemDescriptionMovie>
 
                     <C.ItemDescriptionMovie fontText='2rem' colorText='var(--pcolor9)' weightText='400'>
-                        <img src={iconCalendar} alt='Ícone calendário' title='Ano de lançamento' />
+                        <img src={IconCalendar} alt='Ícone calendário' title='Ano de lançamento' />
                         <p>{releaseDate}</p>
                     </C.ItemDescriptionMovie>
 
                     <C.ItemDescriptionMovie fontText='2rem' colorText='var(--pcolor9)' weightText='400'>
-                        <img src={iconStar} alt='ïcone de nota' title='Pontuação' />
-                        <p>{movie.vote_average}</p>
+                        <img src={IconStar} alt='ïcone de nota' title='Pontuação' />
+                        <p>{movie.vote_average.toFixed(2)}</p>
                     </C.ItemDescriptionMovie>
                 </C.MovieDetails>
                 <C.MoviePoster>
