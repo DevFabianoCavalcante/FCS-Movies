@@ -28,7 +28,7 @@ Para a utilização é necessário somente um navegador web e conexão com a int
 ### :desktop_computer: :pen: Construído com
 
 - [ReactJs](https://pt-br.reactjs.org/docs/getting-started.html)
-    - Hooks (useState, useEffect)
+    - Hooks (useState, useEffect, useRef, customHooks)
     - ContextApi (useContext, createContext)
 - [Typescript](https://www.typescriptlang.org/docs/)
 - [React Router](https://reactrouter.com/en/main/getting-started/tutorial)

@@ -73,6 +73,7 @@ export const Catalog = () => {
 
     const onTouchStart = (e: React.TouchEvent) => {
         setTouchStartX(e.targetTouches[0].clientX);
+        console.log(touchStartX);
     };
 
     const onTouchMove = (e: React.TouchEvent) => {
@@ -87,7 +88,7 @@ export const Catalog = () => {
         if (touchStartX - touchEndX < -50) {
             handlePreviousSlide(e);
         }
-    }
+    };
     
     function getWidthSlide (slideElement: Element) {
         const slideWidth = slideElement.getBoundingClientRect().width;
@@ -106,9 +107,18 @@ export const Catalog = () => {
 
             if(parentController) {
                 const carousel = parentController.previousElementSibling;
-                const slide = carousel?.firstElementChild;
+                let slide;
 
-                if(carousel && slide && slide instanceof HTMLElement) {
+                if(e.type === 'click') {
+                    slide = carousel?.firstElementChild;
+                    console.log(slide);
+                } else if (e.type === 'touchend') {
+                    slide = parentController.children[1].children[0];
+                    console.log(slide)
+                }
+
+                if(carousel && slide instanceof HTMLElement) {
+                    console.log(slide);
                     if(slide.getBoundingClientRect().width < 300){
                         const totalSlideWidth = getWidthSlide(slide); 
                         window.innerWidth > 940 ? carousel.scrollLeft -= totalSlideWidth * 3 : carousel.scrollLeft -= totalSlideWidth * 1;
@@ -123,16 +133,25 @@ export const Catalog = () => {
     }
 
     function handleNextSlide (e: React.MouseEvent | React.TouchEvent) {
-        const element = e.target;
+        const element = e.currentTarget;
 
         if(element && element instanceof HTMLElement) {
             const parentController = element.parentElement;
 
             if(parentController) {
                 const carousel = parentController.previousElementSibling;
-                const slide = carousel?.firstElementChild;
+                let slide;
 
-                if(carousel && slide && slide instanceof HTMLElement) {
+                if(e.type === 'click') {
+                    slide = carousel?.firstElementChild;
+                    console.log(slide);
+                } else if (e.type === 'touchend') {
+                    slide = parentController.children[1].children[0];
+                    console.log(slide)
+                }
+
+                if(carousel && slide instanceof HTMLElement) {
+                    console.log(slide);
                     if(slide.getBoundingClientRect().width < 300){
                         const totalSlideWidth = getWidthSlide(slide); 
                         window.innerWidth > 940 ? carousel.scrollLeft += totalSlideWidth * 3 : carousel.scrollLeft += totalSlideWidth * 1;
@@ -204,7 +223,7 @@ export const Catalog = () => {
             <>
             <C.Container>
                 <h1>Lançamentos</h1>
-                <C.Carousel onTouchStart={onTouchStart} onTouchMove={onTouchMove} onTouchEnd={onTouchEnd}>
+                <C.Carousel onTouchStart={(e)=> onTouchStart(e)} onTouchMove={(e) =>onTouchMove(e)} onTouchEnd={(e)=> onTouchEnd(e)}>
                     {errorNewMovies && <h1 style={{fontSize: '2.4rem', color: '#FEE100', height: '10rem'}}>{errorNewMovies}</h1>}
                     {loadingNewMovies && <Skeleton prop={'standard'} />}
                     {loadingNewMovies && <Skeleton prop={'standard'} />}
@@ -222,8 +241,8 @@ export const Catalog = () => {
                 </C.Carousel>
                 {!errorNewMovies &&
                 <C.SlideController position={'55%'}>
-                    <img src={Arrow} onClick={handlePreviousSlide} onTouchMove={handlePreviousSlide} />
-                    <img src={Arrow} onClick={handleNextSlide} onTouchMove={handleNextSlide} />
+                    <img src={Arrow} onClick={handlePreviousSlide} />
+                    <img src={Arrow} onClick={handleNextSlide} />
                 </C.SlideController>}
             </C.Container>
 
@@ -247,8 +266,8 @@ export const Catalog = () => {
                 </C.Carousel>
                 {!errorTopMovies &&
                 <C.SlideController position={'55%'}>
-                    <img src={Arrow} onClick={handlePreviousSlide} onTouchMove={handlePreviousSlide} />
-                    <img src={Arrow} onClick={handleNextSlide} onTouchMove={handleNextSlide} />
+                    <img src={Arrow} onClick={handlePreviousSlide} />
+                    <img src={Arrow} onClick={handleNextSlide} />
                 </C.SlideController>}
             </C.Container>
 
@@ -274,8 +293,8 @@ export const Catalog = () => {
                 </C.Carousel>
                 {!errorActionMovies &&
                 <C.SlideController position={'45%'}>
-                    <img src={Arrow} onClick={handlePreviousSlide} onTouchMove={handlePreviousSlide} />
-                    <img src={Arrow} onClick={handleNextSlide} onTouchMove={handleNextSlide} />
+                    <img src={Arrow} onClick={handlePreviousSlide} />
+                    <img src={Arrow} onClick={handleNextSlide} />
                 </C.SlideController>}
             </C.Container>
 
@@ -301,8 +320,8 @@ export const Catalog = () => {
                 </C.Carousel>
                 {!errorAnimationMovies &&
                 <C.SlideController position={'45%'}>
-                    <img src={Arrow} onClick={handlePreviousSlide} onTouchMove={handlePreviousSlide} />
-                    <img src={Arrow} onClick={handleNextSlide} onTouchMove={handleNextSlide} />
+                    <img src={Arrow} onClick={handlePreviousSlide} />
+                    <img src={Arrow} onClick={handleNextSlide} />
                 </C.SlideController>}
             </C.Container>
 
@@ -328,8 +347,8 @@ export const Catalog = () => {
                 </C.Carousel>
                 {!errorComedyMovies &&
                 <C.SlideController position={'45%'}>
-                    <img src={Arrow} onClick={handlePreviousSlide} onTouchMove={handlePreviousSlide} />
-                    <img src={Arrow} onClick={handleNextSlide} onTouchMove={handleNextSlide} />
+                    <img src={Arrow} onClick={handlePreviousSlide} />
+                    <img src={Arrow} onClick={handleNextSlide} />
                 </C.SlideController>}
             </C.Container>
 
@@ -355,8 +374,8 @@ export const Catalog = () => {
                 </C.Carousel>
                 {!errorFictionMovies &&
                 <C.SlideController position={'45%'}>
-                    <img src={Arrow} onClick={handlePreviousSlide} onTouchMove={handlePreviousSlide} />
-                    <img src={Arrow} onClick={handleNextSlide} onTouchMove={handleNextSlide} />
+                    <img src={Arrow} onClick={handlePreviousSlide} />
+                    <img src={Arrow} onClick={handleNextSlide} />
                 </C.SlideController>}
             </C.Container>
 
@@ -382,8 +401,8 @@ export const Catalog = () => {
                 </C.Carousel>
                 {!errorRomanceMovies &&
                 <C.SlideController position={'45%'}>
-                    <img src={Arrow} onClick={handlePreviousSlide} onTouchMove={handlePreviousSlide} />
-                    <img src={Arrow} onClick={handleNextSlide} onTouchMove={handleNextSlide} />
+                    <img src={Arrow} onClick={handlePreviousSlide} />
+                    <img src={Arrow} onClick={handleNextSlide} />
                 </C.SlideController>}
             </C.Container>
 
@@ -409,8 +428,8 @@ export const Catalog = () => {
                 </C.Carousel>
                 {!errorThrillerMovies &&
                 <C.SlideController position={'45%'}>
-                    <img src={Arrow} onClick={handlePreviousSlide} onTouchMove={handlePreviousSlide} />
-                    <img src={Arrow} onClick={handleNextSlide} onTouchMove={handleNextSlide} />
+                    <img src={Arrow} onClick={handlePreviousSlide} />
+                    <img src={Arrow} onClick={handleNextSlide} />
                 </C.SlideController>}
             </C.Container>
 
@@ -436,8 +455,8 @@ export const Catalog = () => {
                 </C.Carousel>
                 {!errorWarMovies &&
                 <C.SlideController position={'45%'}>
-                    <img src={Arrow} onClick={handlePreviousSlide} onTouchMove={handlePreviousSlide} />
-                    <img src={Arrow} onClick={handleNextSlide} onTouchMove={handleNextSlide} />
+                    <img src={Arrow} onClick={handlePreviousSlide} />
+                    <img src={Arrow} onClick={handleNextSlide} />
                 </C.SlideController>}
             </C.Container>
 
@@ -463,8 +482,8 @@ export const Catalog = () => {
                 </C.Carousel>
                 {!errorWesternMovies &&
                 <C.SlideController position={'45%'}>
-                    <img src={Arrow} onClick={handlePreviousSlide} onTouchMove={handlePreviousSlide} />
-                    <img src={Arrow} onClick={handleNextSlide} onTouchMove={handleNextSlide} />
+                    <img src={Arrow} onClick={handlePreviousSlide} />
+                    <img src={Arrow} onClick={handleNextSlide} />
                 </C.SlideController>}
             </C.Container>
         </>}
