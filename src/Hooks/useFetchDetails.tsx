@@ -5,12 +5,11 @@ interface FetchRequest<T> {
     loading: boolean;
 }
 
-function useFetchMovie<T>(id: string): FetchRequest<T> {
+function useFetchDetails<T>(url: string): FetchRequest<T> {
     const [data, setData] = React.useState<T | null>(null);
     const [loading, setLoading] = React.useState(false);
 
     const key = import.meta.env.VITE_API_KEY;
-    const url = import.meta.env.VITE_API_URL_BASE;
 
 
     React.useEffect (()=>{
@@ -18,21 +17,22 @@ function useFetchMovie<T>(id: string): FetchRequest<T> {
         setData(null);
 
         async function request () {
-            const response = await fetch(`${url}/movie/${id}?api_key=${key}&language=pt-BR`);
+            const response = await fetch(url);
             if(response.ok) {
                 const json = await response.json();
                 setData(json);
                 setInterval(()=> setLoading(false), 1000);
             } else {
                 setInterval(()=> setLoading(false), 1000);
+                setData(null);
                 throw new Error('Falha na requisição de detalhes do filme.');
             }
         }
         
-        if(id) request();
-    },[id])
+        if(url) request();
+    },[url])
 
     return {data, loading}
 };
 
-export default useFetchMovie;
+export default useFetchDetails;
