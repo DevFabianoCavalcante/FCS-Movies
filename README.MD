@@ -1,5 +1,5 @@
 # FCS Movies :film_strip:
-![versão](https://img.shields.io/badge/versão-2.0.2-FFFF00)
+![versão](https://img.shields.io/badge/versão-2.1.1-FFFF00)
 
 Projeto pessoal de um serviço streaming com landing page de captura, aba do usuário (login, criar conta, recuperar senha) e aba do serviço com catálogo de filmes requisitado via API.
 
@@ -23,7 +23,7 @@ Para a utilização é necessário somente um navegador web e conexão com a int
 
 ![tela do catálogo](https://i.ibb.co/CbnhtX0/catalog-screen.png)
 
-![tela de detalhes do filme](https://i.ibb.co/FKYcJTY/tela-de-detalhes-do-filme.png)
+![tela de detalhes do filme](https://i.ibb.co/ZTFtt1k/movie-area.png)
 
 ### :desktop_computer: :pen: Construído com
 
@@ -41,7 +41,13 @@ Para a utilização é necessário somente um navegador web e conexão com a int
     - Link
 - [Styled Components](https://styled-components.com/docs)
 - [Firebase Authentication](https://firebase.google.com/docs/auth)
-- [The Movie DB](https://developers.themoviedb.org/3/getting-started/introduction)
+- [The Movie DB](https://developer.themoviedb.org/reference/intro/getting-started)
+    - Movies
+        - Details
+        - Images
+        - Recommendations
+        - Videos
+        - Watch Providers
 - [Axios](https://axios-http.com/ptbr/docs/intro)
 
 ### :fountain_pen: Autor
