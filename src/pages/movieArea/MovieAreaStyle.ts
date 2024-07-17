@@ -165,7 +165,7 @@ export const WatchProvidersContainer = styled.div `
     h2{
         font: 600 2.4rem var(--nunitoSans);
         text-align: left;
-        color: var(--pcolor9);
+        color: var(--pcolor10);
         margin-bottom: 1rem;
     }
 
